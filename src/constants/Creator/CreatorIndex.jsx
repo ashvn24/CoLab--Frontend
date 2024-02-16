@@ -1,5 +1,6 @@
 import home from "../../assets/icons/house.svg"
 import explore from "../../assets/icons/explore.svg"
+import post from "../../assets/icons/post.svg"
 
 export const CreatorLeftSideBarLink =[
     {
@@ -13,8 +14,8 @@ export const CreatorLeftSideBarLink =[
         label : "Explore"
     },
     {
-        imgURL: explore,
-        route : "/CreatePost",
+        imgURL: post,
+        route : "/createPost",
         label : "Create Post"
     },
 ]
@@ -30,7 +31,7 @@ export const CreatorBottomBarLink =[
         label : "Explore"
     },
     {
-        imgURL: explore,
+        imgURL: post,
         route : "/cretaePost",
         label : "Create Post"
     },

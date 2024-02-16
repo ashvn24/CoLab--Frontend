@@ -2,16 +2,17 @@ import { Card, CardBody, CardHeader, Typography } from '@material-tailwind/react
 import { Avatar, Chip } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import { Switch } from 'antd';
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers, userBlock } from '../../Redux/Store/UsersListSlice';
 import { toast } from 'react-toastify';
+import { UserStatus } from '../../Axios/AdminServer/AdminServer';
 
 const Users = () => {
 
   const dispatch = useDispatch()
   const { users, status, error } = useSelector((state) => state.userList)
-
+  const [userList, setuserList] = useState([])
 
   if(error){
     toast.error(error)
@@ -19,16 +20,34 @@ const Users = () => {
 
 // fetch users from sUsersListSlice
   useEffect(() => {
-    dispatch(fetchUsers());
 
+    dispatch(fetchUsers());
+    if(users?.length!==0 ){
+      setuserList(users)
+    }
   }, [dispatch]);
 
   const handleToggle = (id) => {
-    dispatch(userBlock(id));
+    
+    UserStatus(id).then((res) =>{
+      dispatch(userBlock(id));
+      setuserList((prevuserList)=> {
+        return prevuserList.map((user) => {
+          if(user.id === id){
+            return {
+              ...user,
+              is_active:!user.is_active
+            }
+          }
+          return user;
+        })
+      })
+
+    })
   };
 
   console.log('selecor',users);
-  console.log('errr',error);
+  console.log('state',userList);
 
   return (
     <div className="mt-12 mb-8 flex flex-col gap-12">
@@ -61,10 +80,10 @@ const Users = () => {
               </tr>
             </thead>
             <tbody >
-              { users.map(
+              {userList.map(
                 ({ img, username, email, role, is_active, date_joined,id }, key) => {
                   const className = `py-3 px-5 ${
-                    key === users.length - 1
+                    key === userList.length - 1
                       ? ""
                       : "border-b border-blue-gray-50"
                   }`;

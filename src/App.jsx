@@ -48,6 +48,7 @@ function App() {
               <Route element={< AdminRootLayout />}>
                 <Route path='/adminDashboard' element={<AdminIndex/>} />
                 <Route path='/users' element={<Users/>} />
+                <Route path='/createPost' element={<CreatePost/>} />
               </Route>
       </Routes>
       <ToastContainer
