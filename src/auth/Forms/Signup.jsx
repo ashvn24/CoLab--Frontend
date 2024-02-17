@@ -165,7 +165,7 @@ const handleSubmit = useCallback(async (e) => {
   </button>
   <div className="text-center text-gray-400">
     Have an account?
-    <span className="font-bold text-black"><Link to={'/signin'}>Sign in</Link> </span>
+    <span className="font-bold text-black"><Link to={'/'}>Sign in</Link> </span>
   </div>
 </div>
 

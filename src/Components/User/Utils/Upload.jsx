@@ -1,49 +1,41 @@
-import React, { useState } from 'react';
-import { InboxOutlined } from '@ant-design/icons';
-import { message, Upload } from 'antd';
 
-const { Dragger } = Upload;
+import React from 'react'
 
-const UploadVideo = () => {
-  const [fileURLs, setFileURLs] = useState([]);
+const UploadVideo = ({handleFileChange = () => {}}) => {
 
-  const props = {
-    name: 'file',
-    multiple: true,
-    action: 'https://run.mocky.io/v3/435e224c-44fb-4773-9faf-380c5e6a2188',
-    onChange(info) {
-      const { status, response } = info.file;
-      if (status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
-      if (status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully.`);
-        // Convert the uploaded file into a URL and store it in state
-        const url = URL.createObjectURL(info.file.originFileObj);
-        setFileURLs(prevURLs => [...prevURLs, url]);
-      } else if (status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-    onDrop(e) {
-      console.log('Dropped files', e.dataTransfer.files);
-    },
-  };
 
   return (
-    <Dragger {...props}>
-      <p className="ant-upload-drag-icon">
-        <InboxOutlined />
-      </p>
-      <p className="ant-upload-text text-white">Click or drag file to this area to upload</p>
-      {fileURLs.map((url, index) => (
-        <video key={index} controls style={{ maxWidth: '300px' }}>
-          <source src={url} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
-      ))}
-    </Dragger>
-  );
-};
+    <div>
+      <label className="relative mt cursor-pointer">
+      <input
+          name='files'
+          type="file"
+          className="hidden"
+          multiple
+          onChange={handleFileChange}
+        />
+        <div className="border border-dotted border-gray-400 w-full h-40 flex items-center justify-center">
+          <svg
+            className="h-12 w-12 text-gray-600"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path d="M12 14l9-5-9-5-9 5 9 5z" />
+            <path
+              d="M12 14l9-5-9-5-9 5 9 5z"
+              transform="matrix(1 0 0 -1 0 24)"
+            />
+          </svg>
+          <p className="text-gray-600">Upload your image</p>
+        </div>
+      </label>
+    </div>
+  )
+}
 
-export default UploadVideo;
+export default UploadVideo
+

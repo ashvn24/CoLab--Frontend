@@ -14,6 +14,7 @@ import { combineReducers } from "@reduxjs/toolkit";
 import authSlice from "./authSlice";
 import AdminauthSlice from "./AdminauthSlice";
 import UsersListSlice from "./UsersListSlice";
+import PostSlice from "./CreatePostSlice";
 
 
 
@@ -28,6 +29,7 @@ const rootReducer = combineReducers({
     usertoken: authSlice,
     AdminToken: AdminauthSlice,
     userList:UsersListSlice,
+    CreatePostData:PostSlice,
     
 })
 

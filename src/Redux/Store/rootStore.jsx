@@ -25,4 +25,10 @@ export const initialstate = {
         error: ''
     },
     isLoading: false,
+
+    CreatePostData:{
+        post:[],
+        status:'idle',
+        error:null
+    }
 }

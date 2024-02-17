@@ -1,4 +1,7 @@
+import axios from "axios";
 import { axiosInstanceUser } from "../Utils/axiosInstance";
+// import { API } from "../Api/EndPoint";
+// import { useSelector } from "react-redux";
 
 export const UserProfile = async () => {
     try {
@@ -48,4 +51,23 @@ export const UserProfile = async () => {
       }
     }
   };
+
+  // export const createPostInstance = async(formData) => {
+  //   // const {title,description, upload} =formData
+  //   // console.log('files',title,description,files);
+  //   // const files=upload
+  //   const {access} = useSelector((state) => state.usertoken)
+  //   try {
+  //     const response = await axios.post(`${API}/create_post/`,formData, {
+  //       headers:{
+  //         "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+  //         "Authorization": `Bearer ${access}`
+  //       }
+  //     });
+  //     return response.data
+  //   } catch (error) {
+  //     console.log(error);
+  //     return error
+  //   }
+  // }
   
