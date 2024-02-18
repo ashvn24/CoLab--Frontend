@@ -7,6 +7,8 @@ export const initialstate = {
         type: null,
         registerSuccess: null,
         user: null,
+        username:null,
+        email:null,
     },
     AdminToken:{
         access: null,

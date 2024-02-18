@@ -40,6 +40,8 @@ const authSlice = createSlice({
                         refresh: action.payload.refresh,
                         user: action.payload.user,
                         type: 'user',
+                        username:action.payload.username,
+                        email:action.payload.email,
                         is_authenticated: true,
                         registerSuccess: null,
                     };

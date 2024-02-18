@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { API } from "../../Axios/Api/EndPoint";
 import axios from "axios";
 import { Post } from "../../Redux/Store/CreatePostSlice";
+import { useNavigate } from "react-router-dom";
 
 
 const PostForm = React.memo (() => {
@@ -15,6 +16,7 @@ const {access} = useSelector((state) => state.usertoken)
 const {post} = useSelector((state) => state.CreatePostData)
 const [progres, setProgres] = useState({ started:false, pc:0});
 const dispatch = useDispatch()
+const navigate = useNavigate()
 const [formData, setFormData] = useState({
   title: '',
   description: '',
@@ -102,7 +104,14 @@ return (
     {/* { progres.started && <progress max="100" value={progres.pc }></progress> } */}
     { progres.started && <Progress percent={progres.pc} />}
      <div className="flex flex-row gap-5 justify-end max-sm:justify-center ">
-     <button type="submit" className='bg-gray-800 p-3 h-14 w-36 rounded-lg mt-6 hover:bg-red'> Cancel</button>
+     <button type="submit" onClick={() =>{
+      setFormData({
+      title: '',
+      description: '',
+      files:[],
+    })
+  navigate('/indexCreator')}} 
+    className='bg-gray-800 p-3 h-14 w-36 rounded-lg mt-6 hover:bg-red'> Cancel</button>
      <button type="submit" onClick={handleSubmit} className='bg-gray-800 p-3 h-14 w-36 rounded-lg mt-6 hover:bg-primary-500'> Submit</button>
 
      </div>

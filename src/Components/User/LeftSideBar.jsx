@@ -1,10 +1,12 @@
 import React from 'react'
 import { Link, NavLink, useLocation, useNavigate} from 'react-router-dom'
-import avatar from '../../assets/avatar.webp'
 import Logout from '../../assets/icons/logout.svg'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { UserLogout } from '../../Redux/Store/authSlice'
 import { toast } from 'react-toastify'
+import { Avatar } from '@mui/material'
+import { deepOrange,  } from '@mui/material/colors'
+import logo from '../../assets/logo.svg'
 
 
 const LeftSideBar = ({LeftSideBarLink}) => {
@@ -12,6 +14,8 @@ const LeftSideBar = ({LeftSideBarLink}) => {
   const {pathname} = useLocation();
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const { email, username } = useSelector((state) => state.usertoken)
+
 
     const logout = () =>{
       dispatch(UserLogout())
@@ -19,20 +23,31 @@ const LeftSideBar = ({LeftSideBarLink}) => {
       toast.success('Logged out')
     }
 
+    function stringAvatar(username) {
+      return {
+        sx: {
+          bgcolor: deepOrange[500],
+          // bgcolor: stringToColor(name),
+        },
+        children: `${username.split(' ')[0][0]}`,
+      };
+    }
+
   return (
     <nav className='leftsidebar'>
       <div className="flex flex-col gap-11 ">
-            <Link to="/" className="flex gap-3 items-center" >
-                <img src="" alt="CoLab" width={130} />
+            <Link to="/" className="flex gap-3 items-center justify-center" >
+                <img src={logo} alt="CoLab" width={130} />
             </Link>
             <Link className='flex gap-3 items-center'>
-            <img src={avatar} alt="profile" className='h-10 w-10 rounded-full' />
+            {/* <img src={avatar} alt="profile" className='h-10 w-10 rounded-full' /> */}
+            <Avatar {...stringAvatar(`${username}`)} className='capitalize' />
             <div className="flex flex-col">
-              <p className="body-bold">
-                John Doe
+              <p className="body-bold capitalize">
+                {username}
               </p>
               <p className="small-regular text-light-3">
-                @username
+                {email}
               </p>
             </div>
             </Link>
