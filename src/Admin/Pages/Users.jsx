@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers, userBlock } from '../../Redux/Store/UsersListSlice';
 import { toast } from 'react-toastify';
 import { UserStatus } from '../../Axios/AdminServer/AdminServer';
+// import  toggleBtn  from "../../Components/Admin/toggleBtn";
+import './toggle.css';
 
 const Users = () => {
 
@@ -125,8 +127,16 @@ const Users = () => {
                         </Typography>
                       </td>
                       <td className={className}>
-                      {is_active ? <Switch  defaultChecked  onChange={()=>handleToggle(id)}/>:<Switch  onChange={()=>handleToggle(id)}/>}
-                         
+                      {/* {is_active ? <Switch  defaultChecked  onChange={()=>handleToggle(id)}/>:<Switch  onChange={()=>handleToggle(id)}/>} */}
+                      <label class="switch-button" for="switch">
+                    <div class="switch-outer">
+                      <input id="switch" type="checkbox"/>
+                      <div class="button">
+                        <span class="button-toggle"></span>
+                        <span class="button-indicator"></span>
+                      </div>
+                    </div>
+                  </label>
                         
                       </td>
                     </tr>
