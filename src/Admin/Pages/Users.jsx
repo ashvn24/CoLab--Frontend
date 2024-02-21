@@ -7,8 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUsers, userBlock } from '../../Redux/Store/UsersListSlice';
 import { toast } from 'react-toastify';
 import { UserStatus } from '../../Axios/AdminServer/AdminServer';
+import Loader from '../../Components/User/Utils/Loader';
 // import  toggleBtn  from "../../Components/Admin/toggleBtn";
-import './toggle.css';
+// import './toggle.css';
 
 const Users = () => {
 
@@ -52,8 +53,9 @@ const Users = () => {
   console.log('state',userList);
 
   return (
-    <div className="mt-12 mb-8 flex flex-col gap-12">
-      {status === 'loading' && <div>Loading...</div>}
+    <>
+      {status === 'loading' && <div><Loader/></div>}
+      <div className="mt-12 mb-8 flex flex-col gap-12">
       {status === 'failed' && <div>Error: {error}</div>}
       {status === 'succeeded' && (
         <Card>
@@ -89,7 +91,7 @@ const Users = () => {
                       ? ""
                       : "border-b border-blue-gray-50"
                   }`;
-
+                  
                   return (
                     <tr key={email}>
                       <td className={className}>
@@ -127,8 +129,8 @@ const Users = () => {
                         </Typography>
                       </td>
                       <td className={className}>
-                      {/* {is_active ? <Switch  defaultChecked  onChange={()=>handleToggle(id)}/>:<Switch  onChange={()=>handleToggle(id)}/>} */}
-                      <label class="switch-button" for="switch">
+                      {is_active ? <Switch  defaultChecked  onChange={()=>handleToggle(id)}/>:<Switch  onChange={()=>handleToggle(id)}/>}
+                      {/* <label class="switch-button" for="switch">
                     <div class="switch-outer">
                       <input id="switch" type="checkbox"/>
                       <div class="button">
@@ -136,7 +138,7 @@ const Users = () => {
                         <span class="button-indicator"></span>
                       </div>
                     </div>
-                  </label>
+                  </label> */}
                         
                       </td>
                     </tr>
@@ -148,6 +150,7 @@ const Users = () => {
         </CardBody>
       </Card>)}
     </div>
+                  </>
   )
 }
 

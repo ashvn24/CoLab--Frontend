@@ -1,22 +1,13 @@
 import { axiosInstance } from "../Utils/axiosInstance";
 
 export const listUserslist = async()=>{
-    try {
 
         // const jwtToken = access
         const res = await axiosInstance.get(`/admin/allUsers/`);
         if (res.status === 200) {
             // Assuming the response contains users data
             return res.data;
-        } else {
-            // Handle unexpected status code
-            console.error('Unexpected status code:', res.status);
-            return res.status;
-        }
-
-    } catch (error) {
-        return error
-    }
+        } 
 }
 
 export const UserStatus = async(id)=>{

@@ -7,10 +7,8 @@ export const UserProfile = async () => {
     try {
       const res = await axiosInstanceUser.get(`/profile/`);
       if (res.status === 200) {
-        // Assuming the response contains users data
         return res;
       } else {
-        // Handle unexpected status code
         console.error("Unexpected status code:", res.status);
         return res.statusText;
       }
@@ -52,22 +50,28 @@ export const UserProfile = async () => {
     }
   };
 
-  // export const createPostInstance = async(formData) => {
-  //   // const {title,description, upload} =formData
-  //   // console.log('files',title,description,files);
-  //   // const files=upload
-  //   const {access} = useSelector((state) => state.usertoken)
-  //   try {
-  //     const response = await axios.post(`${API}/create_post/`,formData, {
-  //       headers:{
-  //         "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
-  //         "Authorization": `Bearer ${access}`
-  //       }
-  //     });
-  //     return response.data
-  //   } catch (error) {
-  //     console.log(error);
-  //     return error
-  //   }
-  // }
-  
+  //get all post as feed for editor
+  export const getAllPost = async () => {
+    try {
+      const response = await axiosInstanceUser.get('/all_post/')
+      console.log('response',response);
+      if (response.status === 200) {
+        return response.data;
+    } else {
+        console.error('Unexpected status code:', response);
+        return response;
+    }
+    } catch (error) {
+      console.log('post',error);
+    }
+  }
+
+  //get all post of creator_upload
+export const getMyPost = async () => {
+  try{
+  const response = await axiosInstanceUser.get('/get_mypost/');
+  return response.data;
+  }catch(error){
+    console.log(error);
+  }
+}

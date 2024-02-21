@@ -18,6 +18,7 @@ import AdminRootLayout from './Admin/AdminRootLayout';
 import AdminIndex from './Admin/Pages/AdminIndex';
 import Users from './Admin/Pages/Users';
 import AdminSignin from './auth/Forms/AdminSignin';
+import MyPost from './User/Creator/pages/MyPost';
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
               <Route element={<CreatorLayout/>}>
                 <Route path='/indexCreator' element={<CreatorHome />} />
                 <Route path='/createPost' element={<CreatePost />} />
+                <Route path='/my_post' element={<MyPost />} />
               </Route>
 
               <Route element={< AdminRootLayout />}>

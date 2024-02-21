@@ -12,7 +12,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers',async () => {
         const response = await listUserslist()
         return response
     } catch (error) {
-        throw Error('Failed to fetch users');
+        // throw error;
     }
 })
 

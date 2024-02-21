@@ -7,10 +7,9 @@ import { toast } from 'react-toastify';
 
 
 const AdminRootLayout = () => {
-  const selector = useSelector((state) => state.AdminToken)
-  const  isAuthenticated = selector.is_authenticated;
+  const {is_authenticated} = useSelector((state) => state.AdminToken)
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!is_authenticated) {
       toast.error('Signin Required')
     }
   }, [])
@@ -19,7 +18,7 @@ const AdminRootLayout = () => {
 
   return (
     <div>
-      {!isAuthenticated? (<Navigate to='/adminSignin'/>):
+      {!is_authenticated? (<Navigate to='/adminSignin'/>):
         <div className="min-h-screen bg-neutral-200">
           <SideNav />
           <div className="p-4 xl:ml-64">

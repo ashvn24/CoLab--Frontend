@@ -68,7 +68,7 @@ const Signin = () => {
   }
 
   const navigateBasedOnRole = useCallback((response) => {
-    const role = response.payload.user;
+    const { role } = response.payload.user;
     const destination = role === 'Editor' ? '/indexEditor' : '/indexCreator';
     navigate(destination); // Assuming `navigate()` is a function for navigation
     toast.success('Successfully Signed-in')

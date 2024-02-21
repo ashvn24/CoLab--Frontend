@@ -38,6 +38,7 @@ const handleForm = useCallback((e) => {
 }, []);
 
 const handleSubmit = useCallback(async () => {
+  console.log(access);
   const postData = new FormData();
   postData.append('title', formData.title);
   postData.append('description', formData.description);
@@ -47,6 +48,7 @@ const handleSubmit = useCallback(async () => {
 
   try {
     setProgres((prevProgress) => ({ ...prevProgress, started: true }));
+
     const response = await axios.post(`${API}/create_post/`, postData, {
       onUploadProgress: (progressEvent) => {
         setProgres((prevProgress) => ({

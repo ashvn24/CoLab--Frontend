@@ -26,11 +26,21 @@ export const initialstate = {
         status: 'idle',
         error: ''
     },
-    isLoading: false,
 
     CreatePostData:{
         post:[],
         status:'idle',
         error:null
-    }
+    },
+
+    allPostData:{
+        posts:[],
+        status:'idle',
+        error:null
+    },
+    myPostData:{
+        my_post:[],
+        status:'idle',
+        error:null
+    },
 }

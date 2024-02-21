@@ -10,8 +10,8 @@ export const CreatorLeftSideBarLink =[
     },
     {
         imgURL: explore,
-        route : "/",
-        label : "Explore"
+        route : "/my_post",
+        label : "My Post"
     },
     {
         imgURL: post,
@@ -27,12 +27,12 @@ export const CreatorBottomBarLink =[
     },
     {
         imgURL: explore,
-        route : "/explore",
-        label : "Explore"
+        route : "/my_post",
+        label : "My Post"
     },
     {
         imgURL: post,
-        route : "/cretaePost",
+        route : "/createPost",
         label : "Create Post"
     },
     
