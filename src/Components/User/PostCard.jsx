@@ -41,16 +41,16 @@ const PostCard = ({ post }) => {
         }
       </div>
       
-        <Link>
+        <Link to={`/postDetail/${post.id}`}>
             <div className="small-medium lg:base-medium py-5">
                 <p>{post.title}</p>
             </div>
-        </Link>
         <div>
             <p>
                 {post.description}
             </p>
         </div>
+        </Link>
         <PostAction email={email} post={post}/>
     </div>
   )

@@ -7,6 +7,7 @@ import { API } from "../../Axios/Api/EndPoint";
 import axios from "axios";
 import { Post } from "../../Redux/Store/CreatePostSlice";
 import { useNavigate } from "react-router-dom";
+import { resetPostState } from "../../Redux/Store/postSlice";
 
 
 const PostForm = React.memo (() => {
@@ -91,7 +92,7 @@ return (
         name='description'
         value={formData.description}
         showCount
-        maxLength={100}
+        maxLength={1000}
         onChange={handleForm}
         placeholder="disable resize"
         style={{

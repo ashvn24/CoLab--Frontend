@@ -19,6 +19,7 @@ import AdminIndex from './Admin/Pages/AdminIndex';
 import Users from './Admin/Pages/Users';
 import AdminSignin from './auth/Forms/AdminSignin';
 import MyPost from './User/Creator/pages/MyPost';
+import PostDetail from './User/Editor/pages/PostDetail';
 
 function App() {
 
@@ -39,6 +40,7 @@ function App() {
                 <Route path='/explore' element={<Explore/>} />
                 <Route path='/profile' element={<Profile/>} />
                 <Route path='/updateProfile' element={<UpdateProfile/>} />
+                <Route path='/postDetail/:id' element={<PostDetail/>}  />
               </Route>
               
               <Route element={<CreatorLayout/>}>

@@ -26,7 +26,11 @@ export const myPost = createAsyncThunk('post/mypost', async () => {
 const postList = createSlice({
     name:'post',
     initialState:initialstate.allPostData,
-    reducers: {},
+    reducers: {
+        resetPostState: (state, action) => {
+            return initialstate.allPostData;
+        }
+    },
     extraReducers: (builder) => {
         builder
                 .addCase(allPost.pending, (state) => {
@@ -40,6 +44,7 @@ const postList = createSlice({
                     state.status = 'failed';
                     state.error = action.error.message;
                 })
+                
     },
     }
 )
@@ -63,6 +68,6 @@ const myPostSlice = createSlice({
         });
     },
   });
-
+export const { resetPostState } = postList.actions;
 export const allPostReducer = postList.reducer;
 export const myPostReducer = myPostSlice.reducer;
