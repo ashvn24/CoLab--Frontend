@@ -1,3 +1,5 @@
+import { deepOrange } from "@mui/material/colors";
+
 export function formatDateString(dateString) {
     const options = {
       year: "numeric",
@@ -15,4 +17,15 @@ export function formatDateString(dateString) {
   
     return `${formattedDate} at ${time}`;
   }
+
+
+export  function stringAvatar(username) {
+    return {
+        sx: {
+        bgcolor: deepOrange[500],
+            // bgcolor: stringToColor(name),
+        },
+        children: `${username.split(' ')[0][0]}`,
+    };
+}
   

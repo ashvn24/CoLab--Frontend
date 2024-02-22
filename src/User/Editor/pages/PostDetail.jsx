@@ -1,67 +1,66 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from "react-redux";
+import { PostDetail } from "../../../Redux/Store/postSlice";
+import { stringAvatar } from "../../../constants/Editor/utils/formater";
+import { Avatar } from "@mui/material";
 
 const postDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
+  const dispatch = useDispatch()
+  const { post, status, error } = useSelector((state) => state.postDetails)
 
-  console.log('id',id);
+  useEffect(() => {
+    dispatch(PostDetail(id))
+  }, [])
+  
   
   return (
     <div className="post_details-container ">
-      <div className=" md:flex max-w-5xl w-full">
-        <div className="rounded-lg border border-dark-4/80">
-    <div className="grid min-h-svh items-start space-y-0 text-sm ">
-      <header className="py-6">
-        <div className="container px-4 md:px-6">
-          <h1 className="text-3xl font-bold tracking-tighter">Introducing Shadcn: The AI-Powered Design Assistant</h1>
-        </div>
-      </header>
-      <main className="grid gap-6 pb-6 lg:grid-cols-3 lg:gap-12">
+    <div className=" md:flex max-w-5xl w-full">
+      <div className="rounded-lg border border-dark-4/80">
+  <div className="grid min-h-svh items-start space-y-0 text-sm ">
+    <header className="py-6">
+      <div className="container px-4 md:px-6">
+        <h1 className="text-3xl font-bold tracking-tighter">{post.title}</h1>
+      </div>
+    </header>
+    <main className="grid gap-6 pb-6 lg:grid-cols-3 lg:gap-12">
+        <img alt="Shadcn"  className=" lg:col-start-1 lg:col-span-1" src="data:image/jpeg;base64,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" />
         <div className="container px-4 space-y-4 text-justify md:space-y-6 md:px-6 lg:col-start-2 lg:col-span-2 lg:space-y-8">
           <p>
-            We are thrilled to announce the launch of Shadcn, the AI-powered design assistant. Shadcn is an innovative
-            tool designed to empower developers and designers by providing them with quick access to beautiful and
-            functional UI components.
-          </p>
-          <p>
-            With Shadcn, you can easily generate code for a wide range of components, including buttons, cards, forms,
-            navigation bars, and more. Whether you are working on a website, web app, or mobile app, Shadcn has you
-            covered.
-          </p>
-          
-        </div>
-      </main>
-      <footer className="border border-dark-4/80">
-        <div className="container flex items-center justify-between px-4 py-4 md:px-6">
-          <div className="flex items-center space-x-4">
-            <img
-              alt="Shadcn"
-              className="rounded-full"
-              height={32}
-              src="/placeholder.svg"
-              style={{
-                aspectRatio: "32/32",
-                objectFit: "cover",
-              }}
-              width={32}
-            />
-            <div className="flex flex-col">
-              <div className="font-semibold">Shadcn</div>
-              <div className="text-xs text-gray-500 dark:text-gray-400">AI-Powered Design Assistant</div>
-            </div>
+         {post.titleDesc}
+        </p>
+        <p>
+          {post.description}
+        </p>
+        
+      </div>
+    </main>
+    <footer className="border border-dark-4/80">
+      <div className="container flex items-center justify-between px-4 py-4 md:px-6">
+        <div className="flex items-center space-x-4">
+        <Link>
+          <Avatar {...stringAvatar(`${post.user.username}`)} className='capitalize' />
+          </Link>
+          <div className="flex flex-col">
+            <div className="font-semibold capitalize">{post.user.username}</div>
+            <div className="text-xs text-gray-500 dark:text-gray-400">{post.user.email}</div>
           </div>
-          <div className="flex items-center space-x-4">
-          <button type="submit"  className='bg-gray-800 p-3 h-14 w-36 rounded-lg mt-6 hover:bg-primary-500 '> Save</button>
-          <button type="submit"  className='bg-gray-800 p-3 h-14 w-36 rounded-lg mt-6 hover:bg-primary-500 '> Request</button>
+        </div>
+        <div className="flex items-center space-x-4">
+        <button type="submit"  className='bg-gray-800 p-3 h-14 w-36 rounded-lg mt-6 hover:bg-primary-500 '> Save</button>
+        <button type="submit"  className='bg-gray-800 p-3 h-14 w-36 rounded-lg mt-6 hover:bg-primary-500 '> Request</button>
 
-          </div>
         </div>
-      </footer>
-    </div> 
-    </div> 
-    </div> 
-    </div> 
+      </div>
+    </footer>
+  </div> 
+  </div> 
+  </div> 
+  </div>
+
      )
 }
 

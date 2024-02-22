@@ -15,7 +15,7 @@ import authSlice from "./authSlice";
 import AdminauthSlice from "./AdminauthSlice";
 import UsersListSlice from "./UsersListSlice";
 import PostSlice from "./CreatePostSlice";
-import { allPostReducer, myPostReducer } from "./postSlice";
+import { allPostReducer, myPostReducer, postDetailReducer } from "./postSlice";
 
 
 
@@ -33,6 +33,7 @@ const rootReducer = combineReducers({
     CreatePostData:PostSlice,
     allPostData:allPostReducer,
     myPostData:myPostReducer,
+    postDetails:postDetailReducer
     
 })
 

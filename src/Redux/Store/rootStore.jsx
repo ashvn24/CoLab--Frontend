@@ -43,4 +43,9 @@ export const initialstate = {
         status:'idle',
         error:null
     },
+    postDetails:{
+        post:[],
+        status: "idle",
+        error:null
+    }
 }

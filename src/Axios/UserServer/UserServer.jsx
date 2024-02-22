@@ -75,3 +75,12 @@ export const getMyPost = async () => {
     console.log(error);
   }
 }
+
+export const getPostDetail = async (id) =>{
+  try {
+    const res = await axiosInstanceUser.get(`/get_post/${id}/`);
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}

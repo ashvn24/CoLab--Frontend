@@ -2,7 +2,7 @@ import { Avatar } from '@mui/material';
 import { deepOrange } from '@mui/material/colors';
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { formatDateString } from '../../constants/Editor/utils/formater';
+import { formatDateString, stringAvatar } from '../../constants/Editor/utils/formater';
 import update from '../../assets/icons/update.svg'
 import { useSelector } from 'react-redux';
 import PostAction from './Utils/PostAction';
@@ -11,15 +11,7 @@ import PostAction from './Utils/PostAction';
 const PostCard = ({ post }) => {
     const {email} = useSelector((state) => state.usertoken)
 
-    function stringAvatar(username) {
-        return {
-            sx: {
-            bgcolor: deepOrange[500],
-                // bgcolor: stringToColor(name),
-            },
-            children: `${username.split(' ')[0][0]}`,
-        };
-    }
+    
   return (
     <div className='post-card'>
       <div className="flex-between">
