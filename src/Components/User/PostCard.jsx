@@ -9,13 +9,13 @@ import PostAction from './Utils/PostAction';
 // import PostAction from './Utils/PostAction';
 
 const PostCard = ({ post }) => {
-    const {email} = useSelector((state) => state.usertoken)
-
+    const {email, user} = useSelector((state) => state.usertoken)
     
   return (
-    <div className='post-card'>
-      <div className="flex-between">
-        <div className="flex items-center gap-3">
+    
+    <div className='flex w-full flex-col rounded-xl bg-dark-4 p-7'>
+      <div className="flex items-start justify-between">
+        <div className="flex w-full flex-1 flex-row gap-3">
             <Link>
             <Avatar {...stringAvatar(`${post.user.username}`)} className='capitalize' />
             </Link>
@@ -33,7 +33,7 @@ const PostCard = ({ post }) => {
         }
       </div>
       
-        <Link to={`/postDetail/${post.id}`}>
+      <Link to={user && user.role === 'Editor' ? `/postDetail/${post.id}` : `/mypostDetail/${post.id}`}>
             <div className="small-medium lg:base-medium py-5">
                 <p>{post.title}</p>
             </div>
@@ -45,6 +45,8 @@ const PostCard = ({ post }) => {
         </Link>
         <PostAction email={email} post={post}/>
     </div>
+    
+    
   )
 }
 

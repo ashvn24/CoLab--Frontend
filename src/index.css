@@ -111,7 +111,9 @@
   .common-container {
     @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
   }
-
+  .main-container {
+    @apply flex min-h-screen flex-1 flex-col  bg-dark-1 px-6 pb-10 pt-20 max-md:pb-32 sm:px-10;
+  }
   /* All Users */
   .user-container {
     @apply max-w-5xl flex flex-col items-start w-full gap-6 md:gap-9;
@@ -136,11 +138,11 @@
 
   /* Home */
   .home-container {
-    @apply flex flex-col flex-1 items-center gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
+    @apply flex flex-col flex-1  gap-10 overflow-scroll py-10 px-5 md:px-8 lg:p-14 custom-scrollbar;
   }
 
   .home-posts {
-    @apply max-w-screen-sm flex flex-col items-center w-full gap-6 md:gap-9;
+    @apply max-w-screen-lg flex flex-col items-center w-full gap-6 md:gap-9;
   }
 
   .home-creators {

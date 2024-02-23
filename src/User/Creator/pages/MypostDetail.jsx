@@ -1,27 +1,19 @@
-import { useParams, Link, useNavigate } from "react-router-dom";
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { PostDetail } from "../../../Redux/Store/postSlice";
-import {
-  formatDateString,
-  stringAvatar,
-} from "../../../constants/Editor/utils/formater";
-import { Avatar, AvatarGroup } from "@mui/material";
-import PostAction from "../../../Components/User/Utils/PostAction";
+import { Avatar } from '@mui/material'
+import React, { useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
+import { formatDateString, stringAvatar } from '../../../constants/Editor/utils/formater'
+import { useDispatch, useSelector } from 'react-redux'
+import { PostDetail } from '../../../Redux/Store/postSlice'
 
-const postDetail = () => {
-  const navigate = useNavigate();
-  const { id } = useParams();
-  const dispatch = useDispatch();
-  const { post, status, error } = useSelector((state) => state.postDetails);
-  const { email } = useSelector((state) => state.usertoken);
-
-  useEffect(() => {
-    dispatch(PostDetail(id));
-  }, []);
+const MypostDetail = () => {
+    const { id } = useParams();
+    const dispatch = useDispatch();
+    const { post, status, error } = useSelector((state) => state.postDetails);
+    useEffect(() => {
+        dispatch(PostDetail(id));
+      }, []);
 
   return (
-    
     <div className="flex flex-1">
   <div className="home-container">
     <div className="home-post ">
@@ -73,26 +65,12 @@ const postDetail = () => {
             {/* <p>{post.description}</p> */}
           </div>
         </Link>
-        <div className=" flex flex-1 items-end ">
-          <button
-            type="submit"
-            className="bg-gray-800 p-3 h-14 w-36 rounded-lg mt-6 hover:bg-primary-500 "
-          >
-            Submit
-          </button>
-          <button
-            type="submit"
-            className="bg-gray-800 p-3 h-14 w-36 ml-10 rounded-lg mt-6 hover:bg-primary-500 "
-          >
-            Request
-          </button>
-        </div>
+        
       </div>
     </div>
   </div>
 </div>
+  )
+}
 
-  );
-};
-
-export default postDetail;
+export default MypostDetail

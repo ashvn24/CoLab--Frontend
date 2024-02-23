@@ -9,7 +9,6 @@ import CreatorHome from './User/Creator/pages/CreatorHome';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EditorLayout from './User/Editor/EditorLayout';
-import Profile from './User/Editor/pages/Profile';
 import UpdateProfile from './User/Editor/pages/UpdateProfile';
 import Explore from './User/Editor/pages/Explore';
 import CreatorLayout from './User/Creator/CreatorLayout';
@@ -20,6 +19,8 @@ import Users from './Admin/Pages/Users';
 import AdminSignin from './auth/Forms/AdminSignin';
 import MyPost from './User/Creator/pages/MyPost';
 import PostDetail from './User/Editor/pages/PostDetail';
+import Profile from './Components/User/Profile';
+import MypostDetail from './User/Creator/pages/MypostDetail';
 
 function App() {
 
@@ -47,6 +48,7 @@ function App() {
                 <Route path='/indexCreator' element={<CreatorHome />} />
                 <Route path='/createPost' element={<CreatePost />} />
                 <Route path='/my_post' element={<MyPost />} />
+                <Route path='/mypostDetail/:id' element={<MypostDetail />} />
               </Route>
 
               <Route element={< AdminRootLayout />}>
