@@ -21,6 +21,7 @@ const navigate = useNavigate()
 const [formData, setFormData] = useState({
   title: '',
   description: '',
+  titleDesc:'',
   files:[],
 });
 
@@ -43,6 +44,7 @@ const handleSubmit = useCallback(async () => {
   const postData = new FormData();
   postData.append('title', formData.title);
   postData.append('description', formData.description);
+  postData.append('titleDesc', formData.titleDesc);
   formData.files.forEach((file) => {
     postData.append('files', file);
   });
@@ -76,6 +78,7 @@ const handleSubmit = useCallback(async () => {
       description: '',
       files:[],
     })
+    dispatch(resetPostState())
   }
 }, [formData]);
 
@@ -86,7 +89,9 @@ return (
       
       <Flex vertical gap={43}>
       Title:
-      <Input showCount maxLength={20} name='title' style={{height:50}} value={formData.title} onChange={handleForm} className='bg-zinc-800 border-none ' />
+      <Input showCount maxLength={20} name='title' style={{height:50}} value={formData.title} onChange={handleForm}  />
+      Title Desc:
+      <Input showCount maxLength={20} name='titleDesc' style={{height:50}} value={formData.titleDesc} onChange={handleForm}  />
       Description:
       <TextArea
         name='description'
@@ -99,7 +104,7 @@ return (
           height: 120,
           resize: 'none',
         }}
-        className='bg-zinc-800 border-none text-white'
+        className=' text-white'
       />
        </Flex>
      Upload Media:

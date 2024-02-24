@@ -24,7 +24,9 @@ export const myPost = createAsyncThunk('post/mypost', async () => {
 
 export const PostDetail = createAsyncThunk('postdetail/postDetail', async (id) => {
     try {
+        console.log('here');
         const Response = await getPostDetail(id)
+        console.log('resp',Response);
         return Response
     } catch (error) {
         throw error
