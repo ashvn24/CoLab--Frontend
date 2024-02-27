@@ -1,39 +1,82 @@
 import { Avatar } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { stringAvatar } from "../../constants/Editor/utils/formater";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import Instagram from "./Utils/Instagram";
+import Youtube from "./Utils/Youtube";
+import Facebook from "./Utils/Facebook";
+import Twitter from "./Utils/Twitter";
+import { fetchProfile } from "../../Redux/Store/UserProfileSlice";
+import Loader from "./Utils/Loader";
+import UpdateProfile from "./UpdateProfile";
+import { BASEURL } from "../../Axios/Api/EndPoint";
 
 const ProfileHeader = () => {
-  const { user } = useSelector((state) => state.usertoken);
-  console.log(user);
+  const { profile,status,error } = useSelector((state) => state.userData);
+  const dispatch = useDispatch()
+  console.log(profile);
+  useEffect(() => {
+    dispatch(fetchProfile())
+  }, [])
+  if(status === 'Loading'){
+    return <div className="flex flex-1 justify-center items-center"><Loader/></div>
+  }
   return (
-    <div className="flex w-full flex-col justify-start">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <div>
-            <Avatar
-              {...stringAvatar(`${user.username}`)}
-              className="capitalize"
-            />
+
+    <div className="flex flex-1 w-full">
+  <div className="home-container w-full">
+    <div className="home-post">
+      <h2 className="h3-bold md:h2-bold text-left w-full">My Profile</h2>
+      <div className="flex w-[80rem] flex-col min-h-fit mt-10 rounded-xl bg-dark-4 p-16">
+        <div className="flex w-full flex-col justify-start">
+          <div className="flex w-full items-center justify-between">
+            <div className="flex w-full flex-1 items-center gap-3">
+              <div>
+                {profile.profile_image ? (
+                  <div className="rounded-full border-2 border-white p-1">
+                    <img
+                      className="rounded-full w-40 h-40 object-cover"
+                      src={`${BASEURL}${profile.profile_image}`}
+                      alt="Profile"
+                    />
+                  </div>
+                ) : ( 
+                      <Avatar
+                        {...stringAvatar(`${profile.user.username}`)}
+                        className="capitalize"
+                      />
+                  )}
+               
+              </div>
+              <div className="flex-1">
+              {profile.user && (
+                <h2 className="text-left h3-bold text-light-1">
+                  {`@${profile.user.username}`}
+                </h2>
+              )}
+              {profile.user && (
+                <p className="small-regular text-light-3">{profile.user.email}</p>)}
+              </div>
+            </div>
+            <div>
+              <UpdateProfile />
+            </div>
           </div>
-          <div className="flex-1">
-            <h2 className="text-left  .h3-bold text-light-1">
-              {`@${user?.username}`}
-            </h2>
-            <p className="small-regular text-light-3">{user.email}</p>
+          <div className="flex flex-row gap-5 mt-16">
+            {profile.channel_link && <Youtube link={profile.channel_link} />}
+            {profile.Instagram && <Instagram />}
+            {profile.facebook && <Facebook />}
           </div>
+          <p className="mt-6  text-base-regular text-light-2">{profile.bio && profile.bio}</p>
         </div>
       </div>
-        <p className="mt-6  text-base-regular text-light-2">
-          Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged.
-        </p>
     </div>
-  );
+    <h2 className="h3-bold md:h2-bold text-left w-full">Saved Post</h2>
+  </div>
+</div>
+
+
+  );            
 };
 
 export default ProfileHeader;

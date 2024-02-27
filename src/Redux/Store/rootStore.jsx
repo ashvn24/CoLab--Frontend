@@ -19,7 +19,11 @@ export const initialstate = {
         registerSuccess: null,
     },
     // logged user data
-    userData: null,
+    userData: {
+        profile:[],
+        status:'idle',
+        error:null
+    },
     // collect and store all user data here
     userList:{
         users: [],
@@ -47,5 +51,15 @@ export const initialstate = {
         post:[],
         status: "idle",
         error:null
-    }
+    },
+    request:{
+        req:[],
+        status:'idle',
+        error:null
+    },
+    mywork:{
+        work:[],
+        status:'idle',
+        error:null
+    },
 }

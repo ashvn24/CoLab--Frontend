@@ -1,11 +1,11 @@
 import { Modal } from "antd";
 import React, { useState } from "react";
 import ReactPlayer from "react-player";
+import { BASEURL } from "../../Axios/Api/EndPoint";
 
 function VideoLayout({ videos }) {
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [open, setOpen] = useState(false);
-  console.log(selectedVideo);
   return (
     <main className="flex-1 overflow-y-auto">
       <div className="grid gap-4 p-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-8">
@@ -39,7 +39,7 @@ function VideoLayout({ videos }) {
         width={1000}
       >
         <ReactPlayer
-          url={`http://127.0.0.1:8000${selectedVideo && selectedVideo.files}`}
+          url={`${BASEURL}${selectedVideo && selectedVideo.files}`}
           width="100%"
           height="100%"
           controls

@@ -28,6 +28,7 @@ const [formData, setFormData] = useState({
 
 const handleFileChange = useCallback((e) => {
   const files = Array.from(e.target.files);
+  console.log(files);
   setFormData((prevData) => ({ ...prevData, files: files }));
 }, []);
 

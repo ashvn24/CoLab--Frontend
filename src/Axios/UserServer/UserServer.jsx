@@ -73,6 +73,7 @@ export const getMyPost = async () => {
   return response.data;
   }catch(error){
     console.log(error);
+    throw error
   }
 }
 
@@ -81,6 +82,56 @@ export const getPostDetail = async (id) =>{
     const res = await axiosInstanceUser.get(`/get_post/${id}/`);
     return res.data
   } catch (error) {
+    throw error
+  }
+}
+
+export const getProfile = async () => {
+  try {
+    const res = await axiosInstanceUser.get('/profile/')
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getRequest = async () => {
+  try{
+    const res = await axiosInstanceUser.get('/viewrequest/')
+    return res.data
+  }catch(error){
+    throw error
+  }
+}
+
+export const sendRequest = async ({post,editor}) => {
+  const requestData = {
+    editor: editor,
+    post: post
+};
+  try {
+    const res = await axiosInstanceUser.post('/request/',{post,editor})
+    return res
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getWorkList = async () => {
+  try {
+    const res = await axiosInstanceUser.get('/mywork/')
+    return res.data
+  } catch (error) {
+    throw error
+  }
+}
+
+
+export const Accept = async (id) => {
+  try{
+    const res = await axiosInstanceUser.put('/acceptrequest/',{id})
+    return res
+  }catch(error){
     throw error
   }
 }

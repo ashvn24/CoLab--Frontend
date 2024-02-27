@@ -9,7 +9,6 @@ import CreatorHome from './User/Creator/pages/CreatorHome';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import EditorLayout from './User/Editor/EditorLayout';
-import UpdateProfile from './User/Editor/pages/UpdateProfile';
 import Explore from './User/Editor/pages/Explore';
 import CreatorLayout from './User/Creator/CreatorLayout';
 import CreatePost from './User/Creator/pages/CreatePost';
@@ -18,9 +17,12 @@ import AdminIndex from './Admin/Pages/AdminIndex';
 import Users from './Admin/Pages/Users';
 import AdminSignin from './auth/Forms/AdminSignin';
 import MyPost from './User/Creator/pages/MyPost';
+import MypostDetail from './User/Creator/pages/MypostDetail'
 import PostDetail from './User/Editor/pages/PostDetail';
-import Profile from './Components/User/Profile';
-import MypostDetail from './User/Creator/pages/MypostDetail';
+import CreatorProfile from './User/Creator/pages/CreatorProfile';
+import Profile from './User/Editor/pages/Profile';
+import CreatorActivity from './User/Creator/pages/CreatorActivity';
+import Work from './User/Editor/pages/Work';
 
 function App() {
 
@@ -40,8 +42,8 @@ function App() {
                 <Route path='/indexEditor' element={<Home/>} />
                 <Route path='/explore' element={<Explore/>} />
                 <Route path='/profile' element={<Profile/>} />
-                <Route path='/updateProfile' element={<UpdateProfile/>} />
                 <Route path='/postDetail/:id' element={<PostDetail/>}  />
+                <Route path='/work' element={<Work />} />
               </Route>
               
               <Route element={<CreatorLayout/>}>
@@ -49,6 +51,8 @@ function App() {
                 <Route path='/createPost' element={<CreatePost />} />
                 <Route path='/my_post' element={<MyPost />} />
                 <Route path='/mypostDetail/:id' element={<MypostDetail />} />
+                <Route path='/creatorProfile' element={< CreatorProfile />} />
+                <Route path='/activity' element={<CreatorActivity/>} />
               </Route>
 
               <Route element={< AdminRootLayout />}>

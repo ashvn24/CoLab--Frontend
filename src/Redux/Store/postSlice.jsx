@@ -24,9 +24,8 @@ export const myPost = createAsyncThunk('post/mypost', async () => {
 
 export const PostDetail = createAsyncThunk('postdetail/postDetail', async (id) => {
     try {
-        console.log('here');
         const Response = await getPostDetail(id)
-        console.log('resp',Response);
+        console.log('res',Response);
         return Response
     } catch (error) {
         throw error
@@ -105,6 +104,7 @@ const myPostSlice = createSlice({
 })
 
 export const { resetPostState } = postList.actions;
+export const {resetPostData} = postDetail.actions;
 export const allPostReducer = postList.reducer;
 export const myPostReducer = myPostSlice.reducer;
 export const postDetailReducer = postDetail.reducer;

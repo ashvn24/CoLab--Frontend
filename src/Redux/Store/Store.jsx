@@ -16,6 +16,9 @@ import AdminauthSlice from "./AdminauthSlice";
 import UsersListSlice from "./UsersListSlice";
 import PostSlice from "./CreatePostSlice";
 import { allPostReducer, myPostReducer, postDetailReducer } from "./postSlice";
+import UserProfileSlice from "./UserProfileSlice";
+import RequestSlice from "./RequestSlice";
+import myWorkSlice from "./myWorkSlice";
 
 
 
@@ -33,9 +36,11 @@ const rootReducer = combineReducers({
     CreatePostData:PostSlice,
     allPostData:allPostReducer,
     myPostData:myPostReducer,
-    postDetails:postDetailReducer
-    
-})
+    postDetails:postDetailReducer,
+    userData:UserProfileSlice,
+    request:RequestSlice,
+    mywork:myWorkSlice,
+});
 
 const persistRootReducer = persistReducer(persistConfig, rootReducer);
 
