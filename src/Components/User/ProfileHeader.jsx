@@ -42,7 +42,7 @@ const ProfileHeader = () => {
                   </div>
                 ) : ( 
                       <Avatar
-                        {...stringAvatar(`${profile.user.username}`)}
+                        {...stringAvatar(`${profile.user && profile.user.username}`)}
                         className="capitalize"
                       />
                   )}
@@ -64,7 +64,7 @@ const ProfileHeader = () => {
           </div>
           <div className="flex flex-row gap-5 mt-16">
             {profile.channel_link && <Youtube link={profile.channel_link} />}
-            {profile.Instagram && <Instagram />}
+            {profile.instagram && <Instagram />}
             {profile.facebook && <Facebook />}
           </div>
           <p className="mt-6  text-base-regular text-light-2">{profile.bio && profile.bio}</p>

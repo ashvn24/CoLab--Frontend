@@ -51,11 +51,11 @@ const UpdateForm = ({ handleOk = () => {} }) => {
   }, []);
 
   return (
-    <div className="w-full">
+    <div className="w-full text-light-2">
       <form onSubmit={handleOk(updateData)}>
         <Flex vertical gap={13}>
           Title:
-          <Input
+          <input className="shad-input rounded-lg"
             showCount
             maxLength={400}
             name="title"
@@ -64,7 +64,7 @@ const UpdateForm = ({ handleOk = () => {} }) => {
             onChange={handleForm}
           />
           Title Desc:
-          <Input
+          <input className="shad-input rounded-lg"
             showCount
             maxLength={400}
             name="titleDesc"
@@ -73,7 +73,7 @@ const UpdateForm = ({ handleOk = () => {} }) => {
             onChange={handleForm}
           />
           Description:
-          <TextArea
+          <textarea
             name="description"
             value={updateData.description}
             showCount
@@ -84,6 +84,7 @@ const UpdateForm = ({ handleOk = () => {} }) => {
               height: 120,
               resize: "none",
             }}
+            className='shad-textarea'
           />
           Upload Media:
           <UploadVideo handleFileChange={handleFileChange} />
@@ -100,7 +101,7 @@ const UpdateForm = ({ handleOk = () => {} }) => {
                     edge="end"
                     aria-label="delete"
                   >
-                    <DeleteIcon />
+                    <DeleteIcon className="text-white" />
                   </IconButton>
                 }
               >

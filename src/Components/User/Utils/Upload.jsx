@@ -14,7 +14,7 @@ const UploadVideo = ({handleFileChange = () => {}}) => {
           multiple
           onChange={handleFileChange}
         />
-        <div className="border border-dotted border-gray-400 w-full h-40 flex items-center justify-center">
+        <div className="border border-dotted border-gray-400 rounded-lg w-full h-40 flex items-center justify-center">
           <svg
             className="h-12 w-12 text-gray-600"
             fill="none"

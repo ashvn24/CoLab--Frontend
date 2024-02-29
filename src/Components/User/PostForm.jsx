@@ -68,6 +68,8 @@ const handleSubmit = useCallback(async () => {
     if (response.status === 201) {
       toast.success('Post Successful');
       dispatch(Post(response.data));
+      navigate('/my_post')
+
     }
     return response;
   } catch (error) {
@@ -83,29 +85,28 @@ const handleSubmit = useCallback(async () => {
   }
 }, [formData]);
 
-console.log('store', post);
 
 return (
     <div className="w-2/3  max-sm:w-10/12">
       
       <Flex vertical gap={43}>
       Title:
-      <Input showCount maxLength={20} name='title' style={{height:50}} value={formData.title} onChange={handleForm}  />
+      <input className="shad-input rounded-lg" showCount maxLength={400} name='title' style={{height:50}} value={formData.title} onChange={handleForm}  />
       Title Desc:
-      <Input showCount maxLength={20} name='titleDesc' style={{height:50}} value={formData.titleDesc} onChange={handleForm}  />
+      <input className="shad-input rounded-lg" showCount maxLength={400} name='titleDesc' style={{height:50}} value={formData.titleDesc} onChange={handleForm}  />
       Description:
-      <TextArea
+      <textarea
         name='description'
         value={formData.description}
         showCount
         maxLength={1000}
         onChange={handleForm}
-        placeholder="disable resize"
+        placeholder=""
         style={{
           height: 120,
           resize: 'none',
         }}
-        className=' text-white'
+        className='shad-textarea '
       />
        </Flex>
      Upload Media:

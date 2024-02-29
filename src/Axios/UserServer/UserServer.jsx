@@ -135,3 +135,13 @@ export const Accept = async (id) => {
     throw error
   }
 }
+
+export const Delete = async (id) => {
+  console.log(id);
+  try {
+    const res = await axiosInstanceUser.delete(`/postDelete/${id}`)
+    return res
+  } catch (error) {
+    throw error
+  }
+}
