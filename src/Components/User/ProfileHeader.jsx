@@ -36,7 +36,8 @@ const ProfileHeader = () => {
                   <div className="rounded-full border-2 border-white p-1">
                     <img
                       className="rounded-full w-40 h-40 object-cover"
-                      src={`${BASEURL}${profile.profile_image}`}
+                      // src={`${BASEURL}${profile.profile_image}`}
+                      src={profile.profile_image}
                       alt="Profile"
                     />
                   </div>

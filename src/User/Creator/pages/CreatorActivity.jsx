@@ -7,18 +7,16 @@ import NotificationCard from "../../../Components/User/NotificationCard";
 const CreatorActivity = () => {
   const { req, status, error } = useSelector((state) => state.request);
   const dispatch = useDispatch();
-  const [change, setChange] = useState("");
-  const [activity, setActivity] = useState([])
+
+  const [activity, setActivity] = useState([]);
+  console.log(req);
+  
   useEffect(() => {
     dispatch(Request());
-    if(req?.length!==0 ){
-      setActivity(req)
+    if (req?.length !== 0) {
+      setActivity(req);
     }
-  }, [change]);
-
-  const handleChange = (id) => {
-    setChange(id);
-  };
+  }, []);
 
   return (
     <>
@@ -37,8 +35,9 @@ const CreatorActivity = () => {
                     return (
                       <li key={key}>
                         <NotificationCard
-                          handleChange={handleChange}
+                          // handleChange={handleChange}
                           reqs={reqs}
+                          setActivity={setActivity}
                         />
                       </li>
                     );

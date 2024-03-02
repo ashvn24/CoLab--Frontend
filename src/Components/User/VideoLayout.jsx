@@ -49,7 +49,7 @@ function VideoLayout({ videos }) {
               <ModalBody>
 
               <ReactPlayer
-              url={`${BASEURL}${selectedVideo && selectedVideo.files}`}
+              url={selectedVideo && selectedVideo.files}
               width="100%"
               height="100%"
               controls

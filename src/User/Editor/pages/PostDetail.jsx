@@ -13,20 +13,31 @@ import { sendRequest } from "../../../Axios/UserServer/UserServer";
 import { Request } from "../../../Redux/Store/RequestSlice";
 
 const postDetail = () => {
-  useEffect(() => {
-    dispatch(PostDetail(id));
-    dispatch(Request())
-    console.log(post);
-  }, []);
 
+  const [activity, setActivity] = useState([])
   const { req } = useSelector((state) => state.request)
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { email } = useSelector((state) => state.usertoken);
+  const usertoken = useSelector((state) => state.usertoken);
   const { post, status, error } = useSelector((state) => state.postDetails);
   const { profile } = useSelector((state) => state.userData);
 
+  useEffect(() => {
+    dispatch(Request());
+    dispatch(PostDetail(id));
+    console.log(post);
+  }, []);
+
+  useEffect(() => {
+    if (req?.length !== 0) {
+      setActivity(req);
+    }
+  }, [])
+
+
+  
+  
   // const [Request, setRequest] = useState(post.attachments? true:false)
 
   console.log(req)
@@ -59,15 +70,14 @@ const postDetail = () => {
 
 
   const handleRequest =async(id) => {
-    const editor =profile.user.id
     const post = id
-    console.log(editor,post);
-    const response = await sendRequest({post,editor})
+    console.log(post);
+    const response = await sendRequest({post})
     if (response.status === 200){
     }
   }
-  
 
+ 
   return (
     <div className="flex flex-1">
       <div className="home-container">
@@ -102,30 +112,16 @@ const postDetail = () => {
 
             {post.id && (
               <Link to={`/postDetail/${post.id}`}>
-                <div className="h3-bold py-10">
+                <div className="h2-bold py-10">
                   <p>{post.title}</p>
+                </div>
+                <div className="h4-bold py-10">
+                  {post.titleDesc}
                 </div>
                 <div>
                   <p>
-                    In publishing and graphic design, Lorem ipsum (/ˌlɔː.rəm
-                    ˈɪp.səm/) is a placeholder text commonly used to demonstrate
-                    the visual form of a document or a typeface without relying
-                    on meaningful content. Lorem ipsum may be used as a
-                    placeholder before the final copy is available. It is also
-                    used to temporarily replace text in a process called
-                    greeking, which allows designers to consider the form of a
-                    webpage or publication, without the meaning of the text
-                    influencing the design. Lorem ipsum is typically a corrupted
-                    version of De finibus bonorum et malorum, a 1st-century BC
-                    text by the Roman statesman and philosopher Cicero, with
-                    words altered, added, and removed to make it nonsensical and
-                    improper Latin. The first two words themselves are a
-                    truncation of dolorem ipsum ("pain itself"). Versions of the
-                    Lorem ipsum text have been used in typesetting at least
-                    since the 1960s, when it was popularized by advertisements
-                    for Letraset transfer sheets.
+                  {post.description}
                   </p>
-                  {/* <p>{post.description}</p> */}
                 </div>
               </Link>
             )}

@@ -47,7 +47,7 @@ const PostCard = ({ post, handleChange=()=>{} }) => {
           <p>{post.title}</p>
         </div>
         <div>
-          <p>{post.description}</p>
+          <p>{post.titleDesc}</p>
         </div>
       </Link>
       <PostAction handleChange={handleChange} email={email} post={post} />

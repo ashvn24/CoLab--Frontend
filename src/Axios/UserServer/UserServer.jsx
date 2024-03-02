@@ -104,13 +104,10 @@ export const getRequest = async () => {
   }
 }
 
-export const sendRequest = async ({post,editor}) => {
-  const requestData = {
-    editor: editor,
-    post: post
-};
+export const sendRequest = async ({post}) => {
+  
   try {
-    const res = await axiosInstanceUser.post('/request/',{post,editor})
+    const res = await axiosInstanceUser.post('/request/',{post})
     return res
   } catch (error) {
     throw error
@@ -132,6 +129,15 @@ export const Accept = async (id) => {
     const res = await axiosInstanceUser.put('/acceptrequest/',{id})
     return res
   }catch(error){
+    throw error
+  }
+}
+
+export const Reject = async (id) => {
+  try {
+    const res = await  axiosInstanceUser.delete(`/rejectRqst` ,{ data : { id } })
+    return res;
+  } catch (error) {
     throw error
   }
 }

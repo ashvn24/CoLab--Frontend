@@ -4,19 +4,48 @@ import { Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
-import { Accept } from "../../Axios/UserServer/UserServer";
+import { Accept, Reject } from "../../Axios/UserServer/UserServer";
+import { AcceptReq } from "../../Redux/Store/RequestSlice";
+import { useDispatch } from "react-redux";
 
-const NotificationCard = ({ reqs, handleChange = () => {} }) => {
-
+const NotificationCard = ({ setActivity, reqs }) => {
+  const dispatch = useDispatch();
 
   const handleRequest = async (id) => {
-    
+
     const response = await Accept(id);
     if (response.status === 200) {
+      setActivity((prevactivity) => {
+
+        return prevactivity.map((noti) => {
+          if (noti.id === id) {
+            return {
+              ...noti,
+              accepted: true,
+            };
+          }
+          return noti;
+        });
+      });
       toast.success("Post accepted");
-      handleChange(id);
+      dispatch(AcceptReq(id));
     }
   };
+
+  const handleReject = (id) => {
+    Reject(id).then((res) => {
+      if(res.status===204){
+
+        setActivity((prevactivity) => {
+          return prevactivity.filter((noti) => {
+            return noti.id !== id;
+          });
+        });
+      }else{
+        toast.error(res.status)
+      }
+    })
+  }
 
   return (
     <div className="flex w-full flex-col rounded-xl bg-dark-4 p-7">
@@ -42,7 +71,7 @@ const NotificationCard = ({ reqs, handleChange = () => {} }) => {
             <p className="mt-1">Accepted</p>
           ) : (
             <>
-              <button>
+              <button onClick={() => handleReject(reqs.id)}>
                 <CloseCircleOutlined style={{ fontSize: "29px" }} />
               </button>
               <button onClick={() => handleRequest(reqs.id)}>

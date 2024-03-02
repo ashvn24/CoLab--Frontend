@@ -1,18 +1,7 @@
-import { Flex, Input } from "antd";
-import TextArea from "antd/es/input/TextArea";
+import { Flex } from "antd";
 import React, { useCallback, useState } from "react";
 import UploadVideo from "./Upload";
 import { useSelector } from "react-redux";
-import {
-  Avatar,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import MovieIcon from "@mui/icons-material/Movie";
 
 const UpdateForm = ({ handleOk = () => {} }) => {
   const { post, status, error } = useSelector((state) => state.postDetails);
@@ -90,31 +79,7 @@ const UpdateForm = ({ handleOk = () => {} }) => {
           <UploadVideo handleFileChange={handleFileChange} />
           {/* { progres.started && <Progress percent={progres.pc} />} */}
         </Flex>
-        <div>
-          <List>
-            {updateData.files.map((video, index) => (
-              <ListItem
-                key={index}
-                secondaryAction={
-                  <IconButton
-                    onClick={() => handleDelete(index)}
-                    edge="end"
-                    aria-label="delete"
-                  >
-                    <DeleteIcon className="text-white" />
-                  </IconButton>
-                }
-              >
-                <ListItemAvatar>
-                  <Avatar>
-                    <MovieIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={`${video}`} />
-              </ListItem>
-            ))}
-          </List>
-        </div>
+        
         {/* { progres.started && <progress max="100" value={progres.pc }></progress> } */}
       </form>
     </div>

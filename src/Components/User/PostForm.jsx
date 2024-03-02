@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import UploadVideo from "./Utils/Upload";
-import { Flex, Input, Progress } from 'antd';
+import { Flex, Input } from 'antd';
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { API } from "../../Axios/Api/EndPoint";
@@ -8,6 +8,7 @@ import axios from "axios";
 import { Post } from "../../Redux/Store/CreatePostSlice";
 import { useNavigate } from "react-router-dom";
 import { resetPostState } from "../../Redux/Store/postSlice";
+import { Progress } from "@nextui-org/react";
 
 
 const PostForm = React.memo (() => {
@@ -16,6 +17,7 @@ const { TextArea } = Input;
 const {access} = useSelector((state) => state.usertoken)
 const {post} = useSelector((state) => state.CreatePostData)
 const [progres, setProgres] = useState({ started:false, pc:0});
+const [uploadComplete, setUploadComplete] = useState(false);
 const dispatch = useDispatch()
 const navigate = useNavigate()
 const [formData, setFormData] = useState({
@@ -41,7 +43,6 @@ const handleForm = useCallback((e) => {
 }, []);
 
 const handleSubmit = useCallback(async () => {
-  console.log(access);
   const postData = new FormData();
   postData.append('title', formData.title);
   postData.append('description', formData.description);
@@ -55,10 +56,15 @@ const handleSubmit = useCallback(async () => {
 
     const response = await axios.post(`${API}/create_post/`, postData, {
       onUploadProgress: (progressEvent) => {
+        const progressPercentage = (progressEvent.loaded / progressEvent.total) * 100;
         setProgres((prevProgress) => ({
           ...prevProgress,
-          pc: (progressEvent.loaded / progressEvent.total) * 100,
+          pc: progressPercentage,
         }));
+    
+        if (progressPercentage === 100) {
+          setUploadComplete(true);
+        }
       },
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -67,6 +73,7 @@ const handleSubmit = useCallback(async () => {
     });
     if (response.status === 201) {
       toast.success('Post Successful');
+      setUploadComplete(false)
       dispatch(Post(response.data));
       navigate('/my_post')
 
@@ -111,8 +118,29 @@ return (
        </Flex>
      Upload Media:
     <UploadVideo  handleFileChange={handleFileChange}/>
-    {/* { progres.started && <progress max="100" value={progres.pc }></progress> } */}
-    { progres.started && <Progress percent={progres.pc} />}
+    {/* { progres.started && <Progress percent={progres.pc} />} */}
+    {/* {progres.started &&<Progress
+      aria-label="Downloading..."
+      size="md"
+      value={progres.pc}
+      color="success"
+      showValueLabel={true}
+      className="max-w-full"
+    />} */}
+    {uploadComplete === true? ( <Progress
+      size="md"
+      isIndeterminate
+      color="warning"
+      aria-label="Loading..."
+      className="max-w-full mt-3"
+    />):(progres.started &&<Progress
+      aria-label="Downloading..."
+      size="md"
+      value={progres.pc}
+      color="success"
+      showValueLabel={true}
+      className="max-w-full"
+    />)}
      <div className="flex flex-row gap-5 justify-end max-sm:justify-center ">
      <button type="submit" onClick={() =>{
       setFormData({

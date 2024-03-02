@@ -2,7 +2,7 @@ import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
 import { initialstate } from "./rootStore";
 import { getRequest } from "../../Axios/UserServer/UserServer";
 
-export const Request = createAsyncThunk('req/Request', async () => {
+export const Request = createAsyncThunk('request/Request', async () => {
     try {
         const Response = await getRequest()
         return Response     
@@ -15,7 +15,19 @@ export const Request = createAsyncThunk('req/Request', async () => {
 const RequestSlice = createSlice({
     name: 'request',
     initialState:initialstate.request,
-    reducers:{},
+    reducers:{
+        AcceptReq:(state,action)=>{
+            state.req = state.req.map((reqs) => {
+                if(reqs.id === action.payload.id){
+                    return{
+                        ...reqs,
+                        accepted: true
+                    }
+                }
+                return reqs;
+            });
+        }
+    },
     extraReducers:(builder) =>{
         builder
             .addCase(Request.pending, (state) => {
@@ -32,4 +44,5 @@ const RequestSlice = createSlice({
     }
 })
 
+export const {AcceptReq} = RequestSlice.actions
 export default RequestSlice.reducer
