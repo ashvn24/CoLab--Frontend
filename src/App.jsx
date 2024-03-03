@@ -23,6 +23,7 @@ import CreatorProfile from "./User/Creator/pages/CreatorProfile";
 import Profile from "./User/Editor/pages/Profile";
 import CreatorActivity from "./User/Creator/pages/CreatorActivity";
 import Work from "./User/Editor/pages/Work";
+import Chat from "./User/Editor/pages/Chat";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/postDetail/:id" element={<PostDetail />} />
           <Route path="/work" element={<Work />} />
+          <Route path="/chatEditor/:id" element={<Chat/>} />
         </Route>
 
         <Route element={<CreatorLayout />}>
