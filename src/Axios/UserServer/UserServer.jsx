@@ -135,7 +135,7 @@ export const Accept = async (id) => {
 
 export const Reject = async (id) => {
   try {
-    const res = await  axiosInstanceUser.delete(`/rejectRqst` ,{ data : { id } })
+    const res = await  axiosInstanceUser.delete(`/rejectRqst/` ,{ data : { id } })
     return res;
   } catch (error) {
     throw error
@@ -147,6 +147,18 @@ export const Delete = async (id) => {
   try {
     const res = await axiosInstanceUser.delete(`/postDelete/${id}`)
     return res
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getChat = async (id) =>{
+  const user_id1 = id.user_id1
+  const user_id2 = id.user_id2
+  console.log(user_id1,user_id2,"axios");
+  try {
+    const res = await axiosInstanceUser.get(`/chat/user/${user_id1}/${user_id2}/`)
+    return res.data
   } catch (error) {
     throw error
   }

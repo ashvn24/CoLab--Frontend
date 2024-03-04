@@ -19,6 +19,7 @@ import { allPostReducer, myPostReducer, postDetailReducer } from "./postSlice";
 import UserProfileSlice from "./UserProfileSlice";
 import RequestSlice from "./RequestSlice";
 import myWorkSlice from "./myWorkSlice";
+import ChatSlice from "./ChatSlice";
 
 
 
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
     userData:UserProfileSlice,
     request:RequestSlice,
     mywork:myWorkSlice,
+    chat:ChatSlice,
 });
 
 const persistRootReducer = persistReducer(persistConfig, rootReducer);

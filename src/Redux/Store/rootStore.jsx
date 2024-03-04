@@ -62,4 +62,9 @@ export const initialstate = {
         status:'idle',
         error:null
     },
+    chat:{
+        msg:[],
+        status:'idle',
+        error:null
+    }
 }
