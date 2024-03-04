@@ -43,7 +43,7 @@ export const BottomBarLink =[
     },
     {
         imgURL: chat,
-        route : "/chatEditor",
+        route : "/chatNotif",
         label : "Chat"
     },
     

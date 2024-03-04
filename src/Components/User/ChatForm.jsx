@@ -6,7 +6,7 @@ const ChatForm = () => {
     <div>
       <div className=" p-5 relative">
         <div className="w-full h-full md:flex">
-            <LeftChat />
+            {/* <LeftChat /> */}
             <section className='flex flex-1 w-full h-full'>
             <ChatArea/>
             </section>

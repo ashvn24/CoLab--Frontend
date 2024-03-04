@@ -133,7 +133,7 @@ const postDetail = () => {
                   >
                     download
                   </button>
-                  <Link to={`/chatEditor/${post.user.id}`}>
+                  <Link to={`/chatEditor`}>
                   <button  className="bg-gray-800 p-3 h-14 w-36 ml-3 rounded-lg mt-6 hover:bg-primary-500">
                     Chat
                   </button>

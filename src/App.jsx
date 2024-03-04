@@ -24,6 +24,9 @@ import Profile from "./User/Editor/pages/Profile";
 import CreatorActivity from "./User/Creator/pages/CreatorActivity";
 import Work from "./User/Editor/pages/Work";
 import Chat from "./User/Editor/pages/Chat";
+import ChatArea from "./Components/User/Utils/ChatArea";
+import ChatNotification from "./User/Editor/pages/ChatNotification";
+import ChatNotif from "./User/Creator/pages/ChatNotif";
 
 function App() {
   return (
@@ -44,7 +47,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/postDetail/:id" element={<PostDetail />} />
           <Route path="/work" element={<Work />} />
-          <Route path="/chatEditor/:id" element={<Chat/>} />
+          <Route path="/chatEditor" element={<Chat/>} />
+          {/* <Route path="/chatNotif" element={ <ChatNotification/> } /> */}
         </Route>
 
         <Route element={<CreatorLayout />}>
@@ -54,6 +58,7 @@ function App() {
           <Route path="/mypostDetail/:id" element={<MypostDetail />} />
           <Route path="/creatorProfile" element={<CreatorProfile />} />
           <Route path="/activity" element={<CreatorActivity />} />
+          <Route path="/chat" element={<ChatNotif />} />
         </Route>
 
         <Route element={<AdminRootLayout />}>

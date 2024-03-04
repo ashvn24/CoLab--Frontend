@@ -18,7 +18,8 @@ const ChatArea = () => {
   const { access } = useSelector((state) => state.usertoken);
   const { profile } = useSelector((state) => state.userData);
   const { msg } = useSelector((state) => state.chat);
-  const { id } = useParams();
+  const { id, user } = useParams();
+  const username = user
   const dispatch = useDispatch();
   const chatContainerRef = useRef(null);
 
@@ -120,17 +121,17 @@ const ChatArea = () => {
 
   return (
     <nav
-      className="md:flex flex-col justify-between min-w-[950px] min-h-[610px] rounded-tr-3xl rounded-br-3xl bg-cover bg-center"
+      className="md:flex flex-col justify-between min-w-[950px] min-h-[610px] rounded-3xl  bg-cover bg-center"
       style={{
         backgroundImage:
           "url(https://blog.1a23.com/wp-content/uploads/sites/2/2020/02/Desktop.png)",
       }}
     >
       <div className="flex flex-col justify-between h-full">
-        <div className="flex px-5 h-20 items-center rounded-tr-3xl justify-between bg-dark-4">
+        <div className="flex px-5 h-20 items-center rounded-tr-3xl rounded-tl-3xl justify-between bg-dark-4">
           <div className="flex flex-row items-center gap-5">
-            <Avatar {...stringAvatar("user")} className="capitalize" />
-            <p className="font-bold">User</p>
+            <Avatar {...stringAvatar(username && username)} className="capitalize" />
+            <p className="font-bold capitalize">{username}</p>
             <p className="small-regular text-light-3">
               <Badge status="success" /> online
             </p>
