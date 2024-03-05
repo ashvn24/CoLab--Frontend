@@ -9,6 +9,7 @@ export const initialstate = {
         user: null,
         username:null,
         email:null,
+        role:'Editor',
     },
     AdminToken:{
         access: null,

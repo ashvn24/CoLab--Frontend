@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 
 const EditorLayout = () => {
-  const {is_authenticated, user} = useSelector((state) => state.usertoken)
+  const {is_authenticated, user,role} = useSelector((state) => state.usertoken)
   const navigate = useNavigate()
   useEffect(() => {
     if (!is_authenticated) {

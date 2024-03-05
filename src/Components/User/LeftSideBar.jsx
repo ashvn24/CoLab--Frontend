@@ -14,8 +14,8 @@ const LeftSideBar = ({LeftSideBarLink}) => {
   const {pathname} = useLocation();
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { email, username, user } = useSelector((state) => state.usertoken)
-
+  const { email, username, user, role } = useSelector((state) => state.usertoken)
+  console.log('role',role)
 
     const logout = () =>{
       dispatch(UserLogout())
@@ -39,7 +39,7 @@ const LeftSideBar = ({LeftSideBarLink}) => {
             <Link to="/" className="flex gap-3 items-center justify-center" >
                 <img src={logo} alt="CoLab" width={130} />
             </Link>
-            <Link className='flex gap-3 items-center' to={user.role==='Editor'? '/profile' : '/creatorProfile'}>
+            <Link className='flex gap-3 items-center' to={user.role && user.role==='Editor'? '/profile' : '/creatorProfile'}>
             {/* <img src={avatar} alt="profile" className='h-10 w-10 rounded-full' /> */}
             <Avatar {...stringAvatar(`${username}`)} className='capitalize' />
             <div className="flex flex-col">

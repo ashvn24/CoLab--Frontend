@@ -29,7 +29,17 @@ const authSlice = createSlice({
                 ...state,
                 registerSuccess: action.payload.message,
             }
+        },
+        Social: (state, action) => {
+            return{
+                ...state,
+                access:action.payload.access_token,
+                refresh:action.payload.refresh_token,
+                email:action.payload.email,
+                is_authenticated: true,
+            }
         }
+
     },
     extraReducers: (builder) => {
         builder
@@ -51,5 +61,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { UserLogout, Success } = authSlice.actions;
+export const { UserLogout, Success, Social } = authSlice.actions;
 export default authSlice.reducer

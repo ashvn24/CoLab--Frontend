@@ -126,7 +126,7 @@ const ChatMessage = ({usr, usrname}) => {
                     </button>
                 </div>
             </div>
-            <div className="flex-1 p-5 overflow-y-auto max-h-[480px] scrollbar-hide " ref={chatContainerRef}>
+            <div className="flex-1 p-5 overflow-y-auto max-h-[440px] scrollbar-hide " ref={chatContainerRef}>
                 <div className="flex flex-col">
                     {messages
                         .slice()
