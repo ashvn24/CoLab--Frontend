@@ -62,7 +62,7 @@ axiosInstanceUser.interceptors.request.use(
             if(isExp){
                 const res = await axios.post(`${API}/token/refresh`,{refresh: refreshToken})
                 if (res.status === 200){
-                    console.log('refresh',res);
+                    // console.log('refresh',res);
                     config.headers.Authorization = `Bearer ${res.data.access}`;
                 }else{
                     console.log(res);

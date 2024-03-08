@@ -51,7 +51,8 @@ export const initialstate = {
     postDetails:{
         post:[],
         status: "idle",
-        error:null
+        error:null,
+        reqdata:[]
     },
     request:{
         req:[],
@@ -67,5 +68,8 @@ export const initialstate = {
         msg:[],
         status:'idle',
         error:null
+    },
+    request:{
+        reqdata:[]
     }
 }

@@ -10,8 +10,8 @@ const LeftChat = ({edit, Chat = () => { } }) => {
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.userData);
   const [chatUser, setChatUser] = useState([])
-  const userId = profile.user.id;
-
+  const userId = profile ? profile.user.id : '';
+  
   useEffect(() => {
     dispatch(fetchProfile());
     console.log(userId,'user');

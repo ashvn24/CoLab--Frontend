@@ -108,7 +108,7 @@ export const sendRequest = async ({post}) => {
   
   try {
     const res = await axiosInstanceUser.post('/request/',{post})
-    return res
+    return res.data
   } catch (error) {
     throw error
   }

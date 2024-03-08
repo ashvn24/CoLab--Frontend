@@ -25,7 +25,6 @@ export const myPost = createAsyncThunk('post/mypost', async () => {
 export const PostDetail = createAsyncThunk('postdetail/postDetail', async (id) => {
     try {
         const Response = await getPostDetail(id)
-        console.log('res',Response);
         return Response
     } catch (error) {
         throw error
@@ -39,7 +38,8 @@ const postList = createSlice({
     reducers: {
         resetPostState: (state, action) => {
             return initialstate.allPostData;
-        }
+        },
+        
     },
     extraReducers: (builder) => {
         builder
@@ -85,7 +85,7 @@ const myPostSlice = createSlice({
     reducers:{
         resetPostData:(state) => {
             return  initialstate.postDetails;
-        }
+        },
     },
     extraReducers: (builder) => {
         builder
