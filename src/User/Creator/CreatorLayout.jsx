@@ -20,18 +20,23 @@ const CreatorLayout = () => {
     }
   }, [])
 
+
+
   return (
     <>
+    
     {!is_authenticated? <Navigate to='/' /> :
     <div className='w-full h-full md:flex'>
       <TopBar />
       <LeftSideBar LeftSideBarLink={CreatorLeftSideBarLink}/>
-      <section className='flex flex-1 h-full'>
+      <section className='flex flex-1 h-full '>
         <Outlet/>
       </section>
       <BottomBar BottomBarLink={CreatorBottomBarLink}/>
     </div>
+    
     }
+    
     </>
   )
 }

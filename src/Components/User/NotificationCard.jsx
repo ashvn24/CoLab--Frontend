@@ -49,21 +49,22 @@ const NotificationCard = ({ setActivity, reqs }) => {
 
   return (
     <div className="flex w-full flex-col rounded-xl bg-dark-4 p-7">
+      
       <div className="flex items-start  justify-evenly">
         <div className="flex w-full flex-1 items-center flex-row gap-3">
           <Link>
             <Avatar
-              {...stringAvatar(`${reqs.editor.username}`)}
+              {...stringAvatar(`${reqs.editor?reqs.editor.username:''}`)}
               className="capitalize"
             />
           </Link>
           <div className="flex flex-col">
             <p className="base-medium  lg:body-bold text-light-1 capitalize">
-              {reqs.editor.username}
+              {reqs.editor?reqs.editor.username:''}
             </p>
           </div>
           <p>requested for the access of post:</p>
-          <p>{reqs.post.title}</p>
+          <p>{reqs.post?reqs.post.title:''}</p>
         </div>
 
         <div className="flex  items-center mt-1 gap-6">

@@ -3,6 +3,7 @@ import { API } from "../Api/EndPoint";
 import { store } from "../../Redux/Store/Store";
 import { jwtDecode } from "jwt-decode";
 import dayjs from "dayjs";
+import { refreshUpdt } from "../../Redux/Store/authSlice";
 
 export const axiosInstance = axios.create({
     baseURL: API,
@@ -30,7 +31,6 @@ axiosInstance.interceptors.request.use(
             }
         } else {
             // Handle the case when there's no access token
-            // For example, you might want to redirect to login page
             console.log('error in store');
         }
         return config;
@@ -46,9 +46,6 @@ export const axiosInstanceUser = axios.create({
         'Content-Type': 'application/json'
     }
 });
-
-
-
 axiosInstanceUser.interceptors.request.use(
     async function (config) {
         const state = store.getState();
@@ -64,13 +61,13 @@ axiosInstanceUser.interceptors.request.use(
                 if (res.status === 200){
                     // console.log('refresh',res);
                     config.headers.Authorization = `Bearer ${res.data.access}`;
+                    store.dispatch(refreshUpdt(res.data.access));
                 }else{
                     console.log(res);
                 }
             }
         } else {
             // Handle the case when there's no access token
-            // For example, you might want to redirect to login page
             console.log('no access token');
         }
         return config;

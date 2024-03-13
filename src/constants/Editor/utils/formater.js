@@ -29,3 +29,18 @@ export  function stringAvatar(username) {
     };
 }
   
+export function timeAgo(timestamp) {
+  const now = new Date();
+  const timestampDate = new Date(timestamp);
+  const seconds = Math.floor((now - timestampDate) / 1000);
+  let interval = Math.floor(seconds / 60);
+
+  if (interval < 1) {
+    return 'Just now';
+  } else if (interval < 60) {
+    return interval + ' minute(s) ago';
+  } else {
+    interval = Math.floor(interval / 60);
+    return interval + ' hour(s) ago';
+  }
+}

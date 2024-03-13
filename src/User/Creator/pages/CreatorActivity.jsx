@@ -3,22 +3,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { Request } from "../../../Redux/Store/RequestSlice";
 import Loader from "../../../Components/User/Utils/Loader";
 import NotificationCard from "../../../Components/User/NotificationCard";
+import { fetchProfile } from "../../../Redux/Store/UserProfileSlice";
+import { axiosInstanceUser } from "../../../Axios/Utils/axiosInstance";
 
 const CreatorActivity = () => {
-  const { req, status, error } = useSelector((state) => state.request);
+  
+  const { profile } = useSelector((state) => state.userData);
   const dispatch = useDispatch();
 
   const [activity, setActivity] = useState([]);
-  console.log(req);
+  const [status, setStatus] = useState('')
+  // console.log(req);
   
   useEffect(() => {
-    dispatch(Request());
-    if (req?.length !== 0) {
-      setActivity(req);
-    }
+    dispatch(fetchProfile());
+    const user_id = profile.user.id;
+    GetNotificationCreator()
   }, []);
 
+  const GetNotificationCreator = async () => {
+    setStatus('Loading')
+    const res = await axiosInstanceUser.get('viewrequest/')
+    setStatus('')
+    setActivity(res.data)
+    console.log(res)
+}
+
   return (
+   
     <>
       {status === "Loading" ? (
         <Loader />

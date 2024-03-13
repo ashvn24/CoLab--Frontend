@@ -95,9 +95,13 @@ export const getProfile = async () => {
   }
 }
 
-export const getRequest = async () => {
+export const getRequest = async (user_id) => {
   try{
-    const res = await axiosInstanceUser.get('/viewrequest/')
+    const res = await axiosInstanceUser.get(`/not/notifList/`,{
+      params: {
+          user_id: user_id
+      }
+  })
     return res.data
   }catch(error){
     throw error

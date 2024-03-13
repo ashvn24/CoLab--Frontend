@@ -24,11 +24,15 @@ return (
         <div className="home-post">
           <h2 className="h3-bold md:h2-bold text-left w-full">Chat</h2>
           <div className=" p-5 relative">
-            <div className="w-full h-full md:flex">
+            <div className="w-full h-full  md:flex">
+              <div className="hidden md:block w-full md:w-2/12">
               <LeftChat Chat={Chat} edit/>
+              </div>
+              <div className="hidden md:block w-full md:w-3/4">
               <section className="flex flex-1 w-full h-full">
                 <ChatLayout usr={usr} usrname={usrname} />
               </section>
+              </div>
             </div>
           </div>
         </div>

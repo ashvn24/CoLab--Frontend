@@ -24,10 +24,9 @@ import Profile from "./User/Editor/pages/Profile";
 import CreatorActivity from "./User/Creator/pages/CreatorActivity";
 import Work from "./User/Editor/pages/Work";
 import Chat from "./User/Editor/pages/Chat";
-import ChatArea from "./Components/User/Utils/ChatArea";
-import ChatNotification from "./User/Editor/pages/ChatNotification";
 import ChatNotif from "./User/Creator/pages/ChatNotif";
 import ZegoVcall from "./Components/User/ZegoVcall";
+import Activity from "./User/Editor/pages/Activity";
 
 function App() {
   return (
@@ -49,7 +48,7 @@ function App() {
           <Route path="/postDetail/:id" element={<PostDetail />} />
           <Route path="/work" element={<Work />} />
           <Route path="/chatEditor" element={<Chat/>} />
-          {/* <Route path="/chatNotif" element={ <ChatNotification/> } /> */}
+          <Route path="/notification" element={<Activity />} />
         </Route>
           
         <Route path='/meeting/:usrname/:usr' element={<ZegoVcall/>} />

@@ -38,8 +38,13 @@ const authSlice = createSlice({
                 email:action.payload.email,
                 is_authenticated: true,
             }
+        },
+        refreshUpdt:(state,action) => {
+            return{
+                ...state,
+                access:action.payload
+            }
         }
-
     },
     extraReducers: (builder) => {
         builder
@@ -61,5 +66,5 @@ const authSlice = createSlice({
     },
 });
 
-export const { UserLogout, Success, Social } = authSlice.actions;
+export const { UserLogout, Success, Social, refreshUpdt } = authSlice.actions;
 export default authSlice.reducer

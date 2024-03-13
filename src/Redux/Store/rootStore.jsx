@@ -69,7 +69,7 @@ export const initialstate = {
         status:'idle',
         error:null
     },
-    request:{
-        reqdata:[]
-    }
+    // request:{
+    //     reqdata:[]
+    // }
 }

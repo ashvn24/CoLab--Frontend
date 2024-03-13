@@ -18,13 +18,13 @@ const PostCard = ({ post, handleChange=()=>{} }) => {
         <div className="flex w-full flex-1 flex-row gap-3">
           <Link>
             <Avatar
-              {...stringAvatar(`${post.user.username}`)}
+              {...stringAvatar(`${post.user?post.user.username:''}`)}
               className="capitalize"
             />
           </Link>
           <div className="flex flex-col">
             <p className="base-medium lg:body-bold text-light-1 capitalize">
-              {post.user.username}
+              {post.user?post.user.username:''}
             </p>
             <div className="flex-center gap-2 text-light-3">
               <p className="subtle-semibold lg:small-regular">
@@ -44,13 +44,14 @@ const PostCard = ({ post, handleChange=()=>{} }) => {
         }
       >
         <div className="small-medium lg:base-medium py-5">
-          <p>{post.title}</p>
+          <p>{post.title? post.title:''}</p>
         </div>
         <div>
-          <p>{post.titleDesc}</p>
+          <p>{post.titleDesc?post.titleDesc:''}</p>
         </div>
       </Link>
-      <PostAction handleChange={handleChange} email={email} post={post} />
+      
+      {/* <PostAction handleChange={handleChange} email={email} post={post} /> */}
     </div>
   );
 };

@@ -2,9 +2,9 @@ import { createAsyncThunk,createSlice } from "@reduxjs/toolkit";
 import { initialstate } from "./rootStore";
 import { getRequest } from "../../Axios/UserServer/UserServer";
 
-export const Request = createAsyncThunk('request/Request', async () => {
+export const Request = createAsyncThunk('request/Request', async (user_id) => {
     try {
-        const Response = await getRequest()
+        const Response = await getRequest(user_id)
         return Response     
     } catch (error) {
         throw error
