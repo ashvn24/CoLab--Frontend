@@ -19,15 +19,21 @@ import {
   ModalFooter,
   Button,
   useDisclosure,
+  Progress,
 } from "@nextui-org/react";
 import UploadVideo from "../../../Components/User/Utils/Upload";
 import { Flex } from "antd";
+import { API } from "../../../Axios/Api/EndPoint";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const postDetail = () => {
   const { post, status, error } = useSelector((state) => state.postDetails);
   const { profile } = useSelector((state) => state.userData);
-  const usertoken = useSelector((state) => state.usertoken);
+  const { access } = useSelector((state) => state.usertoken);
   const { req } = useSelector((state) => state.request);
+  const [progres, setProgres] = useState({ started: false, pc: 0 });
+  const [uploadComplete, setUploadComplete] = useState(false);
   const [postData, setPostData] = useState(post.post ? post.post : post);
   const [attachment, setAttachment] = useState(
     post.editor_request ? post.editor_request : null
@@ -35,12 +41,14 @@ const postDetail = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [activity, setActivity] = useState(false);
   const [buttonS, setButtonS] = useState("Request");
+  const [isopen, setIsopen] = useState(false)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
 
   const [formData, setFormData] = useState({
     description: "",
+    amount: "",
     files: [],
   });
 
@@ -61,6 +69,7 @@ const postDetail = () => {
 
   useEffect(() => {
     setPostData(post.post ? post.post : post);
+    console.log(postData);
   }, [post.post, post]);
 
   useEffect(() => {
@@ -103,6 +112,51 @@ const postDetail = () => {
       [name]: value,
     }));
   }, []);
+
+  const handleSubmit = async () => {
+    const submitData = new FormData();
+    submitData.append("editor", profile.user.id);
+    submitData.append("creator", postData.user.id);
+    submitData.append("desc", formData.description);
+    submitData.append("Quatation", formData.amount);
+    formData.files.forEach((file) => {
+      submitData.append("video_file", file);
+    });
+    try {
+      setProgres((prevProgress) => ({ ...prevProgress, started: true }));
+      const response = await axios.post(`${API}/submit-work/`, submitData, {
+        onUploadProgress: (progressEvent) => {
+          const progressPercentage =
+            (progressEvent.loaded / progressEvent.total) * 100;
+          setProgres((prevProgress) => ({
+            ...prevProgress,
+            pc: progressPercentage,
+          }));
+
+          if (progressPercentage === 100) {
+            setUploadComplete(true);
+          }
+        },
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${access}`,
+        },
+      });
+      if(response.data){
+        toast.success('successfully submited')
+      }
+    } catch (error) {
+      toast.error(error);
+    } finally {
+      setIsopen(false)
+      setUploadComplete(false)
+      setFormData({
+        description: "",
+        amount: "",
+        files: [],
+      });
+    }
+  };
 
   if (status === "Loading") {
     return <Loader />;
@@ -173,7 +227,7 @@ const postDetail = () => {
                     </button>
                   </Link>
                   <button
-                    onClick={onOpen}
+                    onClick={()=>setIsopen(true)}
                     className="bg-gray-800 p-3 h-14 w-36 ml-3 rounded-lg mt-6 hover:bg-primary-500"
                   >
                     Submit
@@ -191,7 +245,7 @@ const postDetail = () => {
       <Modal
         backdrop={"blur"}
         className="bg-dark-3 p-10"
-        isOpen={isOpen}
+        isOpen={isopen}
         size={"3xl"}
         onOpenChange={onOpenChange}
         isDismissable={false}
@@ -205,7 +259,7 @@ const postDetail = () => {
               </ModalHeader>
               <ModalBody>
                 <Flex vertical gap={20}>
-                    <UploadVideo handleFileChange={handleFileChange} />
+                  <UploadVideo handleFileChange={handleFileChange} />
                   Description:
                   <textarea
                     name="description"
@@ -219,24 +273,49 @@ const postDetail = () => {
                       resize: "none",
                     }}
                     className="shad-textarea "
-                    />
+                  />
                   Quation:
                   <input
                     className="shad-input rounded-lg w-2/6"
                     showCount
                     maxLength={400}
-                    name="titleDesc"
+                    name="amount"
                     style={{ height: 50 }}
                     value={formData.titleDesc}
                     onChange={handleForm}
-                    />
+                  />
                 </Flex>
+                {uploadComplete === true ? (
+                  <Progress
+                    size="md"
+                    isIndeterminate
+                    color="warning"
+                    aria-label="Loading..."
+                    className="max-w-full mt-3"
+                  />
+                ) : (
+                  progres.started && (
+                    <Progress
+                      aria-label="Downloading..."
+                      size="md"
+                      value={progres.pc}
+                      color="success"
+                      showValueLabel={true}
+                      className="max-w-full"
+                    />
+                  )
+                )}
               </ModalBody>
+
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button color="danger" variant="light" onPress={()=>setIsopen(false)}>
                   Dismiss
                 </Button>
-                <Button color="primary" onPress={onClose}>
+                <Button
+                  onClick={() => handleSubmit()}
+                  color="primary"
+                  
+                >
                   Send
                 </Button>
               </ModalFooter>

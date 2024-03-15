@@ -1,15 +1,25 @@
-import React, { useEffect } from "react";
-import { stringAvatar } from "../../constants/Editor/utils/formater";
+import React, { useEffect, useState } from "react";
+import { stringAvatar, timeAgo } from "../../constants/Editor/utils/formater";
 import { Avatar } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { CheckCircleOutlined, CloseCircleOutlined } from "@ant-design/icons";
 import { toast } from "react-toastify";
 import { Accept, Reject } from "../../Axios/UserServer/UserServer";
 import { AcceptReq } from "../../Redux/Store/RequestSlice";
 import { useDispatch } from "react-redux";
+import { axiosInstanceUser } from "../../Axios/Utils/axiosInstance";
 
-const NotificationCard = ({ setActivity, reqs }) => {
+const NotificationCard = ({ reqs }) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [status, setStatus] = useState([])
   const dispatch = useDispatch();
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if(reqs.work===null){
+      getStatus(reqs.obj)
+    }
+  }, [reqs])
 
   const handleRequest = async (id) => {
 
@@ -47,39 +57,52 @@ const NotificationCard = ({ setActivity, reqs }) => {
     })
   }
 
+  const handleReq = () => {
+    reqs.work?navigate(`/reviewWork/${reqs.work}`):''
+
+  }
+  
+  
+
+  const getStatus = async (id) => {
+    const Res = await axiosInstanceUser.get(`/viewrequest/${id}`).then((res)=>{
+      console.log(res);
+      return res.data
+    })
+    setStatus(Res)
+    
+  }
+
   return (
-    <div className="flex w-full flex-col rounded-xl bg-dark-4 p-7">
+    <div onClick={handleReq} className="flex w-full flex-col rounded-xl bg-dark-4 p-7">
       
       <div className="flex items-start  justify-evenly">
         <div className="flex w-full flex-1 items-center flex-row gap-3">
           <Link>
             <Avatar
-              {...stringAvatar(`${reqs.editor?reqs.editor.username:''}`)}
+              {...stringAvatar('N')}
               className="capitalize"
             />
           </Link>
-          <div className="flex flex-col">
-            <p className="base-medium  lg:body-bold text-light-1 capitalize">
-              {reqs.editor?reqs.editor.username:''}
-            </p>
-          </div>
-          <p>requested for the access of post:</p>
-          <p>{reqs.post?reqs.post.title:''}</p>
+          <p>{reqs.message}</p>
         </div>
-
-        <div className="flex  items-center mt-1 gap-6">
-          {reqs.accepted ? (
+            {reqs.obj?
+        <div className="flex  items-center mt-1 gap-6 mr-12">
+          {status.accepted ? (
             <p className="mt-1">Accepted</p>
           ) : (
             <>
-              <button onClick={() => handleReject(reqs.id)}>
+              <button onClick={() => handleReject(status.id)}>
                 <CloseCircleOutlined style={{ fontSize: "29px" }} />
               </button>
-              <button onClick={() => handleRequest(reqs.id)}>
+              <button onClick={() => handleRequest(status.id)}>
                 <CheckCircleOutlined style={{ fontSize: "29px" }} />
               </button>
             </>
           )}
+        </div> :''}
+        <div className='flex item-center mt-2'>
+            <p> {timeAgo(reqs.timestamp)}</p>
         </div>
       </div>
     </div>

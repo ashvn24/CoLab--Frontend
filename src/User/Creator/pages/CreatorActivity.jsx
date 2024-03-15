@@ -5,32 +5,80 @@ import Loader from "../../../Components/User/Utils/Loader";
 import NotificationCard from "../../../Components/User/NotificationCard";
 import { fetchProfile } from "../../../Redux/Store/UserProfileSlice";
 import { axiosInstanceUser } from "../../../Axios/Utils/axiosInstance";
+import { NOTIFSOCKET } from "../../../Axios/Api/EndPoint";
 
 const CreatorActivity = () => {
-  
   const { profile } = useSelector((state) => state.userData);
+  const { access } = useSelector((state) => state.usertoken);
+  const [notification, setNotification] = useState([]);
+  const [status, setStatus] = useState("");
+  const [socket, setSocket] = useState('')
   const dispatch = useDispatch();
-
-  const [activity, setActivity] = useState([]);
-  const [status, setStatus] = useState('')
   // console.log(req);
-  
+
   useEffect(() => {
     dispatch(fetchProfile());
     const user_id = profile.user.id;
-    GetNotificationCreator()
+    GetNotificationCreator(user_id);
   }, []);
 
-  const GetNotificationCreator = async () => {
-    setStatus('Loading')
-    const res = await axiosInstanceUser.get('viewrequest/')
-    setStatus('')
-    setActivity(res.data)
-    console.log(res)
-}
+  const GetNotificationCreator = async (user_id) => {
+    setStatus("Loading");
+    const res = await axiosInstanceUser
+      .get(`/not/notifList/`, {
+        params: {
+          user_id: user_id,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setNotification(res.data);
+        setStatus("");
+      });
+  };
+
+  useEffect(() => {
+    getSocket();
+    // Return a cleanup function
+    return () => {
+      if (socket) {
+        socket.close();
+      }
+    };
+  }, [access]);
+
+  const id = profile.user.id;
+  const getSocket = () => {
+    let newSocket = null;
+    if (id && access) {
+      newSocket = new WebSocket(`${NOTIFSOCKET}/${id}/?token=${access}`);
+      setSocket(newSocket);
+      newSocket.onopen = () => console.log("WebSocket connected");
+
+      newSocket.onerror = (error) => {
+        console.error("WebSocket error:", error);
+      };
+
+      newSocket.onclose = () => {
+        console.log("WebSocket closed");
+        // getSocket()
+      };
+    }
+  };
+
+  useEffect(() => {
+    if (socket) {
+      socket.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        if (data) {
+          setNotification((prevNotification) => [...prevNotification, data]);
+        }
+      };
+    }
+    console.log(notification);
+  }, [socket]);
 
   return (
-   
     <>
       {status === "Loading" ? (
         <Loader />
@@ -42,14 +90,12 @@ const CreatorActivity = () => {
                 My Activity
               </h2>
               <ul className="flex flex-col flex-1 gap-9 w-full">
-                {activity ? (
-                  activity.map((reqs, key) => {
+                {notification ? (
+                  notification.map((reqs, key) => {
                     return (
                       <li key={key}>
                         <NotificationCard
-                          // handleChange={handleChange}
                           reqs={reqs}
-                          setActivity={setActivity}
                         />
                       </li>
                     );
