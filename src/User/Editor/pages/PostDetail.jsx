@@ -1,5 +1,5 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { PostDetail, resetPostData } from "../../../Redux/Store/postSlice";
 import {
@@ -11,6 +11,17 @@ import PostAction from "../../../Components/User/Utils/PostAction";
 import Loader from "../../../Components/User/Utils/Loader";
 import { sendRequest } from "../../../Axios/UserServer/UserServer";
 import { Request } from "../../../Redux/Store/RequestSlice";
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+  useDisclosure,
+} from "@nextui-org/react";
+import UploadVideo from "../../../Components/User/Utils/Upload";
+import { Flex } from "antd";
 
 const postDetail = () => {
   const { post, status, error } = useSelector((state) => state.postDetails);
@@ -21,11 +32,17 @@ const postDetail = () => {
   const [attachment, setAttachment] = useState(
     post.editor_request ? post.editor_request : null
   );
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [activity, setActivity] = useState(false);
-  const [buttonS, setButtonS] = useState('Request')
+  const [buttonS, setButtonS] = useState("Request");
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const [formData, setFormData] = useState({
+    description: "",
+    files: [],
+  });
 
   const handleRequest = async (id) => {
     const post = id;
@@ -33,27 +50,22 @@ const postDetail = () => {
     const response = await sendRequest({ post });
     console.log(response);
     setActivity(!activity);
-    setButtonS('Requested')
+    setButtonS("Requested");
     // dispatch(requestData(response))
   };
 
   useEffect(() => {
     dispatch(Request());
     dispatch(PostDetail(id));
-    console.log("attachhh", attachment);
-    console.log(post);
-    // setPostData(post.post)
-    console.log(postData);
+  }, [id]);
 
-    return () => {
-      // dispatch(resetPostData());
-    }
-    
-  }, [activity]);
+  useEffect(() => {
+    setPostData(post.post ? post.post : post);
+  }, [post.post, post]);
 
-  if (status === "Loading") {
-    return <Loader />;
-  }
+  useEffect(() => {
+    setAttachment(post.editor_request ? post.editor_request : null);
+  }, [post.editor_request]);
 
   const handleDownloadAll = (attachments) => {
     attachments.forEach((attachment) => {
@@ -78,6 +90,23 @@ const postDetail = () => {
     });
   };
 
+  const handleFileChange = useCallback((e) => {
+    const files = Array.from(e.target.files);
+    console.log(files);
+    setFormData((prevData) => ({ ...prevData, files: files }));
+  }, []);
+
+  const handleForm = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }, []);
+
+  if (status === "Loading") {
+    return <Loader />;
+  }
   return (
     <div className="flex flex-1">
       <div className="home-container">
@@ -143,15 +172,78 @@ const postDetail = () => {
                       Chat
                     </button>
                   </Link>
+                  <button
+                    onClick={onOpen}
+                    className="bg-gray-800 p-3 h-14 w-36 ml-3 rounded-lg mt-6 hover:bg-primary-500"
+                  >
+                    Submit
+                  </button>
                 </>
               ) : (
-                <p className="bg-gray-800 p-3 h-14 w-36 rounded-lg mt-6 flex  items-center justify-center">Requested</p>
-                
+                <p className="bg-gray-800 p-3 h-14 w-36 rounded-lg mt-6 flex  items-center justify-center">
+                  Requested
+                </p>
               )}
             </div>
           </div>
         </div>
       </div>
+      <Modal
+        backdrop={"blur"}
+        className="bg-dark-3 p-10"
+        isOpen={isOpen}
+        size={"3xl"}
+        onOpenChange={onOpenChange}
+        isDismissable={false}
+        isKeyboardDismissDisabled={true}
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col gap-1">
+                Submit work
+              </ModalHeader>
+              <ModalBody>
+                <Flex vertical gap={20}>
+                    <UploadVideo handleFileChange={handleFileChange} />
+                  Description:
+                  <textarea
+                    name="description"
+                    value={formData.description}
+                    showCount
+                    maxLength={1000}
+                    onChange={handleForm}
+                    placeholder=""
+                    style={{
+                      height: 120,
+                      resize: "none",
+                    }}
+                    className="shad-textarea "
+                    />
+                  Quation:
+                  <input
+                    className="shad-input rounded-lg w-2/6"
+                    showCount
+                    maxLength={400}
+                    name="titleDesc"
+                    style={{ height: 50 }}
+                    value={formData.titleDesc}
+                    onChange={handleForm}
+                    />
+                </Flex>
+              </ModalBody>
+              <ModalFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Dismiss
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Send
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

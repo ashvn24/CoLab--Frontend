@@ -27,6 +27,8 @@ import Chat from "./User/Editor/pages/Chat";
 import ChatNotif from "./User/Creator/pages/ChatNotif";
 import ZegoVcall from "./Components/User/ZegoVcall";
 import Activity from "./User/Editor/pages/Activity";
+import ReviewWork from "./User/Creator/pages/ReviewWork";
+import Success from "./Components/User/Utils/Success";
 
 function App() {
   return (
@@ -61,6 +63,8 @@ function App() {
           <Route path="/creatorProfile" element={<CreatorProfile />} />
           <Route path="/activity" element={<CreatorActivity />} />
           <Route path="/chat" element={<ChatNotif />} />
+          <Route path='/reviewWork/:id' element={<ReviewWork/>} />
+          <Route path="/success/:ordr" element={<Success/>} />
         </Route>
 
         <Route element={<AdminRootLayout />}>

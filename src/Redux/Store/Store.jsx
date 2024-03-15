@@ -20,6 +20,7 @@ import UserProfileSlice from "./UserProfileSlice";
 import RequestSlice from "./RequestSlice";
 import myWorkSlice from "./myWorkSlice";
 import ChatSlice from "./ChatSlice";
+import UploadSlice from "./UploadSlice";
 
 
 
@@ -42,6 +43,7 @@ const rootReducer = combineReducers({
     request:RequestSlice,
     mywork:myWorkSlice,
     chat:ChatSlice,
+    upload:UploadSlice,
 });
 
 const persistRootReducer = persistReducer(persistConfig, rootReducer);
