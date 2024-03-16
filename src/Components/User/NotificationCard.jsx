@@ -9,9 +9,10 @@ import { AcceptReq } from "../../Redux/Store/RequestSlice";
 import { useDispatch } from "react-redux";
 import { axiosInstanceUser } from "../../Axios/Utils/axiosInstance";
 
-const NotificationCard = ({ reqs }) => {
+const NotificationCard = ({ setNotification, reqs }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [status, setStatus] = useState([])
+  const [isaccept, setIsaccept] = useState(false)
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
@@ -22,21 +23,9 @@ const NotificationCard = ({ reqs }) => {
   }, [reqs])
 
   const handleRequest = async (id) => {
-
+    setIsaccept(true)
     const response = await Accept(id);
     if (response.status === 200) {
-      setActivity((prevactivity) => {
-
-        return prevactivity.map((noti) => {
-          if (noti.id === id) {
-            return {
-              ...noti,
-              accepted: true,
-            };
-          }
-          return noti;
-        });
-      });
       toast.success("Post accepted");
       dispatch(AcceptReq(id));
     }
@@ -46,8 +35,8 @@ const NotificationCard = ({ reqs }) => {
     Reject(id).then((res) => {
       if(res.status===204){
 
-        setActivity((prevactivity) => {
-          return prevactivity.filter((noti) => {
+        setNotification((notification) => {
+          return notification.filter((noti) => {
             return noti.id !== id;
           });
         });
@@ -56,6 +45,7 @@ const NotificationCard = ({ reqs }) => {
       }
     })
   }
+  
 
   const handleReq = () => {
     reqs.work?navigate(`/reviewWork/${reqs.work}`):''
@@ -66,7 +56,6 @@ const NotificationCard = ({ reqs }) => {
 
   const getStatus = async (id) => {
     const Res = await axiosInstanceUser.get(`/viewrequest/${id}`).then((res)=>{
-      console.log(res);
       return res.data
     })
     setStatus(Res)
@@ -92,12 +81,14 @@ const NotificationCard = ({ reqs }) => {
             <p className="mt-1">Accepted</p>
           ) : (
             <>
+            {isaccept? 'Accepted':
+            <>
               <button onClick={() => handleReject(status.id)}>
                 <CloseCircleOutlined style={{ fontSize: "29px" }} />
               </button>
               <button onClick={() => handleRequest(status.id)}>
                 <CheckCircleOutlined style={{ fontSize: "29px" }} />
-              </button>
+              </button></>}
             </>
           )}
         </div> :''}

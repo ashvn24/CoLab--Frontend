@@ -123,12 +123,12 @@ const Success = () => {
         status="success"
         title={
           <span style={{ color: "white" }}>
-            Successfully Uploaded to Your channel!..
+            Success!! your video will be uploaded soon...
           </span>
         }
         subTitle={
           <span style={{ color: "white" }}>
-            Order number: {ordr} checkout your new video uploaded...
+            Order number: {ordr} server can take up to a minute to upload your data
           </span>
         }
       />

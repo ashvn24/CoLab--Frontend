@@ -71,11 +71,12 @@ const CreatorActivity = () => {
       socket.onmessage = (event) => {
         const data = JSON.parse(event.data);
         if (data) {
+          console.log(data);
           setNotification((prevNotification) => [...prevNotification, data]);
+          console.log(notification);
         }
       };
     }
-    console.log(notification);
   }, [socket]);
 
   return (
@@ -96,6 +97,7 @@ const CreatorActivity = () => {
                       <li key={key}>
                         <NotificationCard
                           reqs={reqs}
+                          setNotification={setNotification}
                         />
                       </li>
                     );
