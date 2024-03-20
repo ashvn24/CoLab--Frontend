@@ -29,7 +29,7 @@ const LeftChat = ({edit, Chat = () => { } }) => {
   };
   return (
     <>
-      <nav className="md:flex px-6 py-5 flex-col  min-w-[220px] min-h-[610px] rounded-tl-3xl rounded-bl-3xl bg-dark-4">
+      <nav className="md:flex px-6 py-5 flex-col  w-full min-h-[610px] rounded-tl-3xl rounded-bl-3xl bg-dark-4">
     <div className="text-white font-bold mb-10 mt-5 flex text-center">Users</div>
     <div className="flex flex-col gap-9">
         {/* Sample user data */}
