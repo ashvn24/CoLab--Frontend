@@ -26,6 +26,9 @@ const RequestSlice = createSlice({
                 }
                 return reqs;
             });
+        },
+        StorePost:(state,action)=> {
+            state.post=action.payload
         }
     },
     extraReducers:(builder) =>{
@@ -44,5 +47,5 @@ const RequestSlice = createSlice({
     }
 })
 
-export const {AcceptReq} = RequestSlice.actions
+export const {AcceptReq,StorePost} = RequestSlice.actions
 export default RequestSlice.reducer

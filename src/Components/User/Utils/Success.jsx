@@ -13,11 +13,12 @@ import {
 import { toast } from "react-toastify";
 import { axiosInstanceUser } from "../../../Axios/Utils/axiosInstance";
 import { useSelector } from "react-redux";
+import { Delete } from "../../../Axios/UserServer/UserServer";
 
 const Success = () => {
-    
+    const { post } = useSelector((state)=> state.request)
     const { vid_key } = useSelector((state)=> state.upload)
-    const { ordr } = useParams();
+    const { ordr, postid } = useParams();
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
     const [open, setOpen] = useState(true);
     const [button, setbutton] = useState('post')
@@ -51,6 +52,7 @@ const Success = () => {
             console.log(error)
         })
       // Set open to false if all fields are filled
+      Delete(postid)
       setOpen(false);
     }
   };

@@ -57,7 +57,8 @@ export const initialstate = {
     request:{
         req:[],
         status:'idle',
-        error:null
+        error:null,
+        post:null,
     },
     mywork:{
         work:[],

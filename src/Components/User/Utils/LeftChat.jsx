@@ -29,17 +29,17 @@ const LeftChat = ({edit, Chat = () => { } }) => {
   };
   return (
     <>
-      <nav className="md:flex px-6 py-5 flex-col  min-w-[210px] min-h-[610px] rounded-tl-3xl rounded-bl-3xl bg-dark-4">
-    <div className="text-white font-bold mb-10 mt-5 text-center">Users</div>
+      <nav className="md:flex px-6 py-5 flex-col  min-w-[220px] min-h-[610px] rounded-tl-3xl rounded-bl-3xl bg-dark-4">
+    <div className="text-white font-bold mb-10 mt-5 flex text-center">Users</div>
     <div className="flex flex-col gap-9">
         {/* Sample user data */}
         {chatUser.map((usr,index)=>(
           <button onClick={() => Chat(edit ? { id: usr.post.user.id, username: usr.post.user.username } : { id: usr.editor.id, username: usr.editor.username })}>
           <div key={index}>
             <div className="flex items-center gap-1">
-                <div className="flex flex-row items-center gap-5">
+                <div className="flex flex-row items-center gap-3">
                     <Avatar {...stringAvatar(edit ? usr.post.user.username : usr.editor.username )} className="capitalize" />
-                    <p className="font-bold capitalize">{edit ? usr.post.user.username : usr.editor.username }</p>
+                    <p className="font-bold text-sm capitalize">{edit ? usr.post.user.username : usr.editor.username }</p>
                 </div>
             </div>
           </div>

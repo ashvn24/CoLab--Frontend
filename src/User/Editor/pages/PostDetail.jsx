@@ -1,16 +1,16 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PostDetail, resetPostData } from "../../../Redux/Store/postSlice";
+import { PostDetail } from "../../../Redux/Store/postSlice";
 import {
   formatDateString,
   stringAvatar,
 } from "../../../constants/Editor/utils/formater";
 import { Avatar, AvatarGroup } from "@mui/material";
-import PostAction from "../../../Components/User/Utils/PostAction";
+// import PostAction from "../../../Components/User/Utils/PostAction";
 import Loader from "../../../Components/User/Utils/Loader";
 import { sendRequest } from "../../../Axios/UserServer/UserServer";
-import { Request } from "../../../Redux/Store/RequestSlice";
+// import { Request, StorePost } from "../../../Redux/Store/RequestSlice";
 import {
   Modal,
   ModalContent,
@@ -31,7 +31,7 @@ const postDetail = () => {
   const { post, status, error } = useSelector((state) => state.postDetails);
   const { profile } = useSelector((state) => state.userData);
   const { access } = useSelector((state) => state.usertoken);
-  const { req } = useSelector((state) => state.request);
+  // const { req } = useSelector((state) => state.request);
   const [progres, setProgres] = useState({ started: false, pc: 0 });
   const [uploadComplete, setUploadComplete] = useState(false);
   const [postData, setPostData] = useState(post.post ? post.post : post);
@@ -41,11 +41,11 @@ const postDetail = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [activity, setActivity] = useState(false);
   const [buttonS, setButtonS] = useState("Request");
-  const [isopen, setIsopen] = useState(false)
-  const navigate = useNavigate();
+  const [isopen, setIsopen] = useState(false);
+  // const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
-
+  console.log(attachment);
   const [formData, setFormData] = useState({
     description: "",
     amount: "",
@@ -63,7 +63,6 @@ const postDetail = () => {
   };
 
   useEffect(() => {
-    dispatch(Request());
     dispatch(PostDetail(id));
   }, [id]);
 
@@ -77,26 +76,44 @@ const postDetail = () => {
   }, [post.editor_request]);
 
   const handleDownloadAll = (attachments) => {
-    attachments.forEach((attachment) => {
-      // Assuming attachment.files is the URL of the file
+    // Map attachments to an array of fetch promises
+    const fetchPromises = attachments.map((attachment) => {
       const fileUrl = attachment.files;
-
-      // Create an anchor element
-      const anchor = document.createElement("a");
-      anchor.href = fileUrl;
-
-      // Set the download attribute to force download
-      anchor.download = fileUrl.split("/").pop();
-
-      // Append the anchor to the body
-      document.body.appendChild(anchor);
-
-      // Trigger a click event to start the download
-      anchor.click();
-
-      // Remove the anchor from the body
-      document.body.removeChild(anchor);
+      // Fetch the file and return a promise for the blob
+      return fetch(fileUrl)
+        .then((response) => response.blob())
+        .then((blob) => ({ blob, fileUrl }));
     });
+
+    // Use Promise.all() to execute fetches in parallel
+    Promise.all(fetchPromises)
+      .then((responses) => {
+        responses.forEach(({ blob, fileUrl }) => {
+          // Create a Blob object
+          const blobUrl = URL.createObjectURL(blob);
+
+          // Create a link element
+          const a = document.createElement("a");
+          a.href = blobUrl;
+
+          // Extract the filename from the URL
+          const filename = fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+
+          // Set the download attribute with the filename
+          a.download = filename;
+
+          // Append the link to the document body and trigger a click event
+          document.body.appendChild(a);
+          a.click();
+
+          // Cleanup: remove the link and revoke the Blob URL
+          document.body.removeChild(a);
+          URL.revokeObjectURL(blobUrl);
+        });
+      })
+      .catch((error) => {
+        console.error("Error downloading files:", error);
+      });
   };
 
   const handleFileChange = useCallback((e) => {
@@ -119,6 +136,7 @@ const postDetail = () => {
     submitData.append("creator", postData.user.id);
     submitData.append("desc", formData.description);
     submitData.append("Quatation", formData.amount);
+    submitData.append("post", id);
     formData.files.forEach((file) => {
       submitData.append("video_file", file);
     });
@@ -142,14 +160,14 @@ const postDetail = () => {
           Authorization: `Bearer ${access}`,
         },
       });
-      if(response.data){
-        toast.success('successfully submited')
+      if (response.data) {
+        toast.success("successfully submited");
       }
     } catch (error) {
       toast.error(error);
     } finally {
-      setIsopen(false)
-      setUploadComplete(false)
+      setIsopen(false);
+      setUploadComplete(false);
       setFormData({
         description: "",
         amount: "",
@@ -227,7 +245,7 @@ const postDetail = () => {
                     </button>
                   </Link>
                   <button
-                    onClick={()=>setIsopen(true)}
+                    onClick={() => setIsopen(true)}
                     className="bg-gray-800 p-3 h-14 w-36 ml-3 rounded-lg mt-6 hover:bg-primary-500"
                   >
                     Submit
@@ -265,7 +283,7 @@ const postDetail = () => {
                     name="description"
                     value={formData.description}
                     showCount
-                    maxLength={1000}
+                    maxLength={400}
                     onChange={handleForm}
                     placeholder=""
                     style={{
@@ -308,14 +326,14 @@ const postDetail = () => {
               </ModalBody>
 
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={()=>setIsopen(false)}>
+                <Button
+                  color="danger"
+                  variant="light"
+                  onPress={() => setIsopen(false)}
+                >
                   Dismiss
                 </Button>
-                <Button
-                  onClick={() => handleSubmit()}
-                  color="primary"
-                  
-                >
+                <Button onClick={() => handleSubmit()} color="primary">
                   Send
                 </Button>
               </ModalFooter>

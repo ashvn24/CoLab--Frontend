@@ -51,7 +51,7 @@ const PostCard = ({ post, handleChange=()=>{} }) => {
         </div>
       </Link>
       
-      {/* <PostAction handleChange={handleChange} email={email} post={post} /> */}
+      <PostAction handleChange={handleChange} email={email} post={post} />
     </div>
   );
 };

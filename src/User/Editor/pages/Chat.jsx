@@ -18,7 +18,6 @@ const Chat = () => {
 
 
 return (
-  <div>
     <div className="flex flex-1">
       <div className="home-container">
         <div className="home-post">
@@ -38,7 +37,6 @@ return (
         </div>
       </div>
     </div>
-  </div>
 );
 };
 

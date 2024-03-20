@@ -24,6 +24,7 @@ const ReviewWork = () => {
             await axiosInstanceUser.get(`get-work/${id}`).then((res)=>{
                 console.log(res.data)
                 setWork(res.data)
+                console.log(work)
                 dispatch(Videokey(res.data.vidkey))
                 const vid_file = res.data.video_file
                 const videoBlob = base64toBlob(vid_file);
@@ -110,7 +111,7 @@ const ReviewWork = () => {
     
           await axiosInstanceUser.put(`/pay/payment/success/`, bodyData).then((res)=>{
             toast.success(res.message)
-            navigate(`/success/${response.razorpay_order_id}`)
+            navigate(`/success/${response.razorpay_order_id}/${work.post}`)
           })
         } catch (error) {
           console.error("Payment error:", error);

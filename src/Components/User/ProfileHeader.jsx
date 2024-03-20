@@ -18,16 +18,15 @@ const ProfileHeader = () => {
   useEffect(() => {
     dispatch(fetchProfile())
   }, [])
-  if(status === 'Loading'){
-    return <div className="flex flex-1 justify-center items-center"><Loader/></div>
-  }
+  
   return (
 
     <div className="flex flex-1 w-full">
   <div className="home-container w-full">
     <div className="home-post">
       <h2 className="h3-bold md:h2-bold text-left w-full">My Profile</h2>
-      <div className="flex w-[80rem] flex-col min-h-fit mt-10 rounded-xl bg-dark-4 p-16">
+      {status === 'Loading'? (<div><Loader/></div>):
+      <div className="flex w-full flex-col h-full mt-10 rounded-xl bg-dark-4 p-16">
         <div className="flex w-full flex-col justify-start">
           <div className="flex w-full items-center justify-between">
             <div className="flex w-full flex-1 items-center gap-3">
@@ -70,9 +69,9 @@ const ProfileHeader = () => {
           </div>
           <p className="mt-6  text-base-regular text-light-2">{profile.bio && profile.bio}</p>
         </div>
-      </div>
+      </div>}
     </div>
-    <h2 className="h3-bold md:h2-bold text-left w-full">Saved Post</h2>
+    {/* <h2 className="h3-bold md:h2-bold text-left w-full">Saved Post</h2> */}
   </div>
 </div>
 

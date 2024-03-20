@@ -64,7 +64,7 @@ function App() {
           <Route path="/activity" element={<CreatorActivity />} />
           <Route path="/chat" element={<ChatNotif />} />
           <Route path='/reviewWork/:id' element={<ReviewWork/>} />
-          <Route path="/success/:ordr" element={<Success/>} />
+          <Route path="/success/:ordr/:postid" element={<Success/>} />
         </Route>
 
         <Route element={<AdminRootLayout />}>

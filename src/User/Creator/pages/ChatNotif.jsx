@@ -24,15 +24,13 @@ const ChatNotif = () => {
             <LeftChat Chat={Chat} />
           </div>
           {/* ChatLayout component */}
-          <div className=" w-full md:w-3/4"> {/* Take full width on small screens */}
+          <div className="hidden md:block w-full md:w-3/4"> {/* Take full width on small screens */}
             <section className="flex flex-1 w-full h-full">
               <ChatLayout usr={usr} usrname={usrname} />
             </section>
           </div>
         </div>
-        {/* <div className="md:hidden">
-            <MobileChat />
-        </div> */}
+        
       </div>
     </div>
   </div>
