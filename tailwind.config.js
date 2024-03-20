@@ -18,7 +18,6 @@ module.exports = {
       screens: {
         '2xl': '1400px',
       },
-      width: '80%',
     },
     extend: {
       colors: {
