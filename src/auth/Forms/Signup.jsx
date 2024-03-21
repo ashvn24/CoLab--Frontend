@@ -59,6 +59,7 @@ const Signup = () => {
             role,
             password
           );
+          console.log('respp',registrationResponse);
           if (
             registrationResponse === "Email already exists" ||
             registrationResponse === "Username already exists"
