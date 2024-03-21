@@ -90,6 +90,7 @@ const Signup = () => {
   });
 
   useEffect(() => {
+    console.log('api',API)
     if (user) {
       console.log(user);
       axios
