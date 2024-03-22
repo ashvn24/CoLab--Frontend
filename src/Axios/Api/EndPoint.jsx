@@ -1,4 +1,4 @@
-export const API = 'http://www.co-lab.website//api';
+export const API = 'http://www.co-lab.website/api';
 
 export const BASEURL = 'http://www.co-lab.website/';
 
