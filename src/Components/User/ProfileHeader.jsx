@@ -26,7 +26,7 @@ const ProfileHeader = () => {
     <div className="home-post">
       <h2 className="h3-bold md:h2-bold text-left w-full">My Profile</h2>
       {status === 'Loading'? (<div><Loader/></div>):
-      <div className="flex w-full flex-col h-full mt-10 rounded-xl bg-dark-4 p-16">
+      <div className="flex min-w-[60rem] flex-col h-full mt-10 rounded-xl bg-dark-4 p-16">
         <div className="flex w-full flex-col justify-start">
           <div className="flex w-full items-center justify-between">
             <div className="flex w-full flex-1 items-center gap-3">
