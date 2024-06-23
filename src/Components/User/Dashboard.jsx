@@ -13,11 +13,11 @@ const Dashboard = () => {
   const getYtData = async () => {
     const channel_name = "UCoFId24HnrDZAnoXjFa_IMg";
     try {
-      // const response = await axiosInstanceUser.get(`/yt/getData/`,{
-      //   params: {
-      //     channel_name: channel_name
-      //   }
-      // });
+      const response = await axiosInstanceUser.get(`/yt/getData/`,{
+        params: {
+          channel_name: channel_name
+        }
+      });
       console.log("res", response.data);
       setChannel(response.data);
       setLoading(false); // Set loading to false after data is fetched
