@@ -12,15 +12,15 @@ const YtStats = () => {
   const getVdata = async () => {
     const channel_name = "UCoFId24HnrDZAnoXjFa_IMg";
     try {
-      // await axiosInstanceUser
-      //   .get("/yt/chdata/", {
-      //     params: {
-      //       channel_name: channel_name,
-      //     },
-      //   })
-      //   .then((res) => {
-      //     setVdData(res.data);
-      //   });
+      await axiosInstanceUser
+        .get("/yt/chdata/", {
+          params: {
+            channel_name: channel_name,
+          },
+        })
+        .then((res) => {
+          setVdData(res.data);
+        });
     } catch (error) {
       console.log(error);
     } finally {
